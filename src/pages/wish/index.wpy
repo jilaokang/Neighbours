@@ -1,0 +1,137 @@
+<template>
+  <view class="page">
+    <wishHeader></wishHeader>
+
+    <!-- banner图 -->
+    <!--<view class="banner">-->
+      <!--<image class="filter" src="http://pd37peogt.bkt.clouddn.com/a%281%29.png"></image>-->
+    <!--</view>-->
+
+    <NULL></NULL>
+    <!-- 微心愿 -->
+    <view class="container">
+      <view class="nav-title">
+        <view class="middle nav-title__content">
+          <view class="nav-title__img iconfont icon-wish" style="color: brown"></view>
+          微心愿
+        </view>
+        <!--<navigator class="btn-yellow btn-yellow__empty btn-xs" url="../">订阅</navigator>-->
+      </view>
+      <navigator class="push" url="../">发布心愿
+        <text class="iconfont icon-qianjinxiayige"></text>
+      </navigator>
+    </view>
+    <scroll-view class="scroll" scroll-x scroll-with-animation="true">
+      <wishCard></wishCard>
+      <wishCard></wishCard>
+      <wishCard></wishCard>
+    </scroll-view>
+    <NULL></NULL>
+    <view class="deal">
+      <view class="container">
+        <view class="nav-title">
+          <view class="middle nav-title__content">
+            <view class="nav-title__img nav-title__imgb icon-jiankaoanpai iconfont"
+                  style="color: rebeccapurple;"></view>
+            微治理
+          </view>
+          <!--<navigator class="btn-yellow btn-yellow__empty btn-xs" url="../">订阅</navigator>-->
+        </view>
+        <navigator class="push" url="../">发布治理
+          <text class="iconfont icon-qianjinxiayige"></text>
+        </navigator>
+      </view>
+      <view>
+        <listCard></listCard>
+        <listCard></listCard>
+        <listCard></listCard>
+      </view>
+    </view>
+
+    <lastNULL Height="188rpx"></lastNULL>
+  </view>
+</template>
+
+
+
+
+<script>
+  import wepy from 'wepy'
+  import wishCard from '../../coomponent/wishCard'
+  import wishHeader from '../../coomponent/wishHeader'
+  import listCard from '../../coomponent/listCard'
+  import NULL from '../../coomponent/null'
+
+  export default class wish extends wepy.page {
+    components = {
+      wishCard: wishCard,
+      wishHeader: wishHeader,
+      listCard: listCard,
+      NULL: NULL,
+      lastNULL:NULL
+    }
+    data = {
+      height: '5000rpx'
+    }
+  }
+</script>
+
+
+
+<style lang="scss" scoped>
+  @import "../../static/base";
+
+  .page {
+    overflow-x: hidden;
+  }
+
+  .banner {
+    image {
+      width: 100%;
+      height: 30vh;
+    }
+  }
+
+
+  .nav-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .middle {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-title__img {
+    font-size: 46rpx;
+    margin-right: 20rpx
+  }
+
+  .nav-title__content {
+    font-size: 42rpx;
+    font-weight: 800;
+    margin-right: 16rpx;
+  }
+
+  .scroll {
+    white-space: nowrap;
+    width: 93%;
+    padding: 0 30rpx 50rpx 30rpx;
+    margin-right: 30rpx;
+  }
+
+  .deal {
+    padding-bottom: 50rpx;
+  }
+
+  .push {
+    font-size: $font-size-md
+  }
+
+  .container {
+    padding-top: 40rpx;
+    padding-bottom: 40rpx;
+  }
+</style>

@@ -1,0 +1,26 @@
+<template>
+  <view class="null" style="height:{{Height}}"></view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class NULL extends  wepy.component{
+    props={
+      Height: {
+        default: '38rpx'
+      },
+    }
+
+    onLoad(){
+      console.log(this.Height)
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "../static/base";
+.null{
+  width: 100%;
+  background:$bg-color;
+}
+</style>

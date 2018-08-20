@@ -1,0 +1,98 @@
+<style lang="scss">
+  page {
+    background: #eee;
+  }
+
+  .container {
+    padding-top: 10rpx;
+    padding-bottom: 5rpx;
+    background: #fff;
+  }
+
+  .iconfont {
+    font-size: 60rpx;
+    color: #aaa;
+  }
+
+  textarea {
+    border-bottom: 1rpx solid #eee;
+    padding-top: 13rpx;
+  }
+
+  .emoji {
+    .center_middle {
+      .iconfont:first-child {
+        margin-right: 12rpx;
+      }
+    }
+  }
+
+
+  .send {
+    border-radius: 8rpx;
+    background: green;
+    color: #fff;
+    font-size: 24rpx;
+    padding: 0 20rpx;
+    line-height: 2.4;
+  }
+</style>
+
+<template>
+  <view class="container">
+    <view class="row">
+      <view class="col-1" style="width: 98rpx">
+        <view @tap="showSoundButton" class="center_middle icon-Add iconfont  chat-input-height"></view>
+      </view>
+      <view class="col-7" style="width:482rpx" id="chatMsgArea">
+        <view class="center_middle">
+          <textarea @input="getMsg" maxlength="-1"
+                    wx:if="{{!status.soundBoolean}}"
+                    auto-height></textarea>
+          <text id="soundButton" wx:if="{{status.soundBoolean}}">点击录音 ing</text>
+        </view>
+      </view>
+      <view class="col-2 emoji" style="width: 170rpx">
+        <view class="center_middle">
+          <text class="iconfont icon-Add"></text>
+          <text class="iconfont icon-Add" wx:if="{{!value.chatMsg.length && !status.soundBoolean }}"></text>
+          <text class="send" wx:if="{{value.chatMsg.length || status.soundBoolean}}">发送</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class index extends wepy.page {
+    config = {
+      navigationBarTitleText: '水陆社区'
+    }
+
+    data = {
+      status: {
+        soundBoolean: false
+      },
+      value: {
+        chatMsg: ''
+      }
+
+    }
+
+    onLoad() {
+      console.log('onLoad')
+
+    }
+
+    methods = {
+      getMsg: (e) => this.value.chatMsg = e.detail.value,
+      showSoundButton: () => {
+        this.status.soundBoolean = !this.status.soundBoolean;
+        this.value.chatMsg = null
+      },
+      show
+    }
+  }
+</script>

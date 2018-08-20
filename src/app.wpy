@@ -1,0 +1,47 @@
+<style lang="scss">
+  @import '../node_modules/tq-layout/main.scss';
+  @import './static/iconfont';
+  @import "./static/base";
+</style>
+
+<script>
+  import wepy from 'wepy';
+  import 'wepy-async-function';
+
+  export default class extends wepy.app {
+    constructor() {
+      super();
+      this.use('promisify');
+    }
+
+    config = {
+      pages: ['pages/wish/index'],
+      window: {
+        backgroundTextStyle: 'light',
+        navigationBarBackgroundColor: '#c00000',
+        navigationBarTitleText: 'WeChat',
+        navigationBarTextStyle: '#ffffff'
+      },
+      // tabBar: {
+      //   list: [
+      //     {
+      //       pagePath: 'pages/index',
+      //       text: '首页',
+      //       iconPath: '/static/check-circle.png',
+      //       selectedIconPath: '/static/check-circle.png'
+      //     },
+      //     {
+      //       pagePath: 'pages/index',
+      //       text: '日志',
+      //       iconPath: '/static/check-circle.png',
+      //       selectedIconPath: '/static/check-circle.png'
+      //     }
+      //   ]
+      // }
+    };
+
+    onLaunch() {
+      console.log('on launch');
+    }
+  }
+</script>

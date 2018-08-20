@@ -1,0 +1,116 @@
+<template>
+  <swiper style="height: 100rpx">
+    <swiper-item>
+      <view class="center">
+        <view class="center-info">
+          <view class="center-info__content">
+            <view class="iconfont icon-wish"></view>
+            <view class="center-info__number">23</view>
+          </view>
+          <view class="center-info__content">
+            <view class="iconfont icon-jiankaoanpai"></view>
+            <view class="center-info__number">19</view>
+          </view>
+        </view>
+        <view class="userInfo">
+          <open-data id="userInfo__username" type="userNickName"></open-data>
+          <navigator class="avator" url="../">
+            <open-data type="userAvatarUrl"></open-data>
+          </navigator>
+        </view>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="center notice">
+        <view class="iconfont icon-tongzhi">
+        </view>
+        <div class="notice__content">今天晚上停水停电，洗澡自行解决。</div>
+      </view>
+    </swiper-item>
+    <swiper-item>
+      <view class="center notice">
+        <view class="iconfont icon-tongzhi">
+        </view>
+        <div class="notice__content">抱歉上一条不够详细，是全市停水停电。</div>
+      </view>
+    </swiper-item>
+  </swiper>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class wishHeader extends wepy.component {
+
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "../static/base";
+   .notice{
+     justify-content: start !important;
+     .iconfont,.notice__content{
+       font-size: 40rpx;
+       color: #C00000;
+       font-weight: 800;
+       margin-right: 10rpx;
+     }
+     .notice__content{
+       font-size: $font-size;
+     }
+   }
+
+  .center {
+    height: 100rpx;
+    padding: 0 30rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10rpx;
+  }
+
+  .center-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-md;
+  }
+
+  .center-info__content {
+    display: flex;
+    align-items: center;
+    font-size: $font-size-md;
+    font-weight: 800;
+    view {
+                     color: rgba(0,0,0,0.6) !important;
+      /*color: rebeccapurple;*/
+    }
+    .iconfont{
+      margin-right: 10rpx;
+      font-size: 40rpx;
+    }
+  }
+
+  .center-info__content:first-child {
+    margin-right: 30rpx;
+    view {
+      /*color: brown!important;*/
+    }
+  }
+
+  .avator {
+    width: 66rpx;
+    height: 66rpx;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .userInfo {
+    display: flex;
+    align-items: center;
+    #userInfo__username {
+      font-size: $font-size;
+      margin-right: 16rpx;
+    }
+  }
+</style>

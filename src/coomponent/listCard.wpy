@@ -1,0 +1,56 @@
+<template>
+  <view class="container list">
+    <view class="list-block">
+      <view class="list-content">
+        <view class="list-content__content">
+          中央人民政协委员会对机灵长春疫苗事件大为震惊，派遣飞虎队前往解决。
+        </view>
+        <view class="list-content__info">
+          水路小区 2018年8月25号
+        </view>
+      </view>
+      <view class="iconfont icon-qianjinxiayige"></view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class listCard extends wepy.component {
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "../static/base.scss";
+  .list {
+    padding-top:0 !important;
+    padding-bottom: 28rpx !important;
+    .list-block {
+      width: 100%;
+      display: flex;
+      border-radius: 10rpx;
+      padding: 18rpx 32rpx;
+      box-shadow: $box-shadow;
+      justify-content: space-between;
+      align-items: center;
+      .list-content {
+        line-height: 1.55;
+        letter-spacing: 4rpx;
+        .list-content__info {
+          letter-spacing: 0;
+          line-height: 2;
+          font-size: $font-size-xs;
+          color: $color-grey;
+        }
+        .list-content__content{
+          font-size: $font-size-md;
+        }
+      }
+      .iconfont {
+        font-size: 60rpx;
+        color: #aaa;
+      }
+    }
+  }
+</style>
