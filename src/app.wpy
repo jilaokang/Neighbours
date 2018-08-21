@@ -15,7 +15,7 @@
     }
 
     config = {
-      pages: ['pages/chat/index'],
+      pages: ['pages/phone/index','pages/chat/index','pages/wish/index'],
       window: {
         backgroundTextStyle: 'light',
         navigationBarBackgroundColor: '#c00000',

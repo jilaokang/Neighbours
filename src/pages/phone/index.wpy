@@ -1,0 +1,86 @@
+<template>
+  <view style="padding: 32rpx 24rpx">
+    <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber"> 获取手机号，调至网格群聊</button>
+    <button @tap="toWishPage" style="margin-top: 24rpx">微心愿页面</button>
+
+    <button open-type="getUserInfo" @getuserinfo="bindGetUserInfo" style="margin-top: 24rpx">授权登陆</button>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Phone extends wepy.page {
+
+    methods = {
+      toWishPage(){
+        wx.navigateTo({
+          url: '/pages/wish/index'
+        })
+      },
+      bindGetUserInfo(){
+        wx.getUserInfo({
+          success: function(res) {
+            console.log('-----------')
+            console.log(res.userInfo)
+
+            wx.showToast({
+              title: '获取信息成功！',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+        })
+
+      },
+      getPhoneNumber(e) {
+        let SESSIONKEY, ENCRYPTEDDATA, IV;
+        IV = e.detail.iv;
+        ENCRYPTEDDATA = e.detail.encryptedData
+
+
+        wx.login({
+          success: (res) => {
+            let url = `https://wll.tenqent.com/index.php/Api/GetWechatApi/getSessionKey/code/${res.code}.html`
+            wx.request({
+              url: url,
+              success: (res) => {
+                SESSIONKEY = res.data.session_key;
+                wx.setStorage({
+                  key:"openid",
+                  data:res.data.openid
+                })
+
+                wx.showToast({
+                  title: '获取手机号',
+                  icon: 'success',
+                  duration: 2000
+                })
+                wx.request({
+                  url: "https://wll.tenqent.com/index.php/Api/GetWechatApi/encryptedData.html",
+                  data: {
+                    session_key: SESSIONKEY,
+                    encryptedData: ENCRYPTEDDATA,
+                    iv: IV
+                  },
+                  method: "get",
+                  success: () => {
+                    setTimeout(() => {
+                      wx.navigateTo({
+                        url: '/pages/chat/index'
+                      })
+                    }, 2000)
+                  }
+                })
+              }
+            })
+          }
+        })
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

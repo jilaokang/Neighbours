@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e705a759-b71e-4c29-bf2a-ccce0374053d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/project.config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.wepycache" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/coomponent/listCard.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/coomponent/listCard.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/coomponent/wishHeader.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/coomponent/wishHeader.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.wpy" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/wish/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/wish/index.wpy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/static/iconfont.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/static/iconfont.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/chat/index.wpy" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/chat/index.wpy" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,7 +43,7 @@
           <entry key="vue" value="1" />
           <entry key="wepycache" value="1" />
           <entry key="wepyignore" value="1" />
-          <entry key="wpy" value="24" />
+          <entry key="wpy" value="25" />
           <entry key="wxml" value="1" />
         </counts>
       </usages-collector>
@@ -61,7 +56,7 @@
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="RNG Compact" value="1" />
           <entry key="SCSS" value="5" />
-          <entry key="Vue.js" value="25" />
+          <entry key="Vue.js" value="26" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts">
@@ -75,7 +70,7 @@
           <entry key="json" value="1" />
           <entry key="scss" value="458" />
           <entry key="vue" value="60" />
-          <entry key="wpy" value="12934" />
+          <entry key="wpy" value="15154" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -83,7 +78,7 @@
           <entry key="CSS" value="1" />
           <entry key="JSON" value="1" />
           <entry key="SCSS" value="458" />
-          <entry key="Vue.js" value="12994" />
+          <entry key="Vue.js" value="15214" />
         </counts>
       </usages-collector>
     </session>
@@ -93,8 +88,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+            <state relative-caret-position="105">
+              <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+              <folding>
+                <element signature="e#148#172#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,7 +101,7 @@
         <entry file="file://$PROJECT_DIR$/project.config.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+              <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -111,10 +109,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/wish/index.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1035">
-              <caret line="73" selection-start-line="73" selection-end-line="73" />
+            <state relative-caret-position="810">
+              <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
               <folding>
                 <element signature="n#style#0;n#view#0;n#view#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#1707#1730#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -123,13 +122,28 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/chat/index.wpy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="233" column="57" selection-start-line="233" selection-start-column="57" selection-end-line="233" selection-end-column="57" />
+            <state relative-caret-position="669">
+              <caret line="253" column="38" selection-start-line="253" selection-start-column="38" selection-end-line="253" selection-end-column="38" />
               <folding>
                 <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#view#0;n#scroll-view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#view#1;n#view#1;n#view#0;n#template#0;n#!!top" />
                 <element signature="n#style#0;n#swiper#0;n#view#1;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#6671#6694#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/phone/index.wpy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
+              <folding>
+                <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#2;n#view#0;n#template#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -145,18 +159,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="705">
               <caret line="47" column="21" selection-start-line="47" selection-start-column="21" selection-end-line="47" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/static/iconfont.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2160">
-              <caret line="144" selection-start-line="144" selection-end-line="144" />
-              <folding>
-                <element signature="e#251#25924#1" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -200,7 +202,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>wxy_bimg</find>
       <find>wycy_wxy</find>
       <find>Navigation</find>
       <find>lv_white-space_nowrap</find>
@@ -230,6 +231,7 @@
       <find>data</find>
       <find>msg</find>
       <find>rpx</find>
+      <find>console</find>
     </findStrings>
     <replaceStrings>
       <replace>$i * 62.25</replace>
@@ -268,6 +270,7 @@
         <option value="$PROJECT_DIR$/src/coomponent/otherMsg.wpy" />
         <option value="$PROJECT_DIR$/project.config.json" />
         <option value="$PROJECT_DIR$/src/app.wpy" />
+        <option value="$PROJECT_DIR$/src/pages/phone/index.wpy" />
         <option value="$PROJECT_DIR$/src/pages/chat/index.wpy" />
       </list>
     </option>
@@ -317,30 +320,6 @@
             <path>
               <item name="U" type="b2602c69:ProjectViewProjectNode" />
               <item name="U" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="U" type="b2602c69:ProjectViewProjectNode" />
-              <item name="U" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="coomponent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="U" type="b2602c69:ProjectViewProjectNode" />
-              <item name="U" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="U" type="b2602c69:ProjectViewProjectNode" />
-              <item name="U" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="wish" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="U" type="b2602c69:ProjectViewProjectNode" />
-              <item name="U" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -367,6 +346,13 @@
               <item name="U" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="phone" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="U" type="b2602c69:ProjectViewProjectNode" />
+              <item name="U" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="wish" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -383,6 +369,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/kaso/Desktop/U/src/pages/wish/index.wpy" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -433,12 +420,12 @@
       <workItem from="1534778585546" duration="12000" />
       <workItem from="1534812203587" duration="364000" />
       <workItem from="1534831580554" duration="21870000" />
-      <workItem from="1534862006029" duration="9196000" />
+      <workItem from="1534862006029" duration="18310000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98792000" />
+    <option name="totallyTimeSpent" value="107906000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1080" y="0" width="1080" height="1920" extended-state="0" />
@@ -614,7 +601,7 @@
     <entry file="file://$PROJECT_DIR$/project.config.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -627,30 +614,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+        <state relative-caret-position="105">
+          <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <folding>
+            <element signature="e#148#172#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/wish/index.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="73" selection-start-line="73" selection-end-line="73" />
+        <state relative-caret-position="810">
+          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
           <folding>
             <element signature="n#style#0;n#view#0;n#view#0;n#view#0;n#view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#1707#1730#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/phone/index.wpy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#2;n#view#0;n#template#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/chat/index.wpy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="233" column="57" selection-start-line="233" selection-start-column="57" selection-end-line="233" selection-end-column="57" />
+        <state relative-caret-position="669">
+          <caret line="253" column="38" selection-start-line="253" selection-start-column="38" selection-end-line="253" selection-end-column="38" />
           <folding>
             <element signature="n#style#0;n#view#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#view#0;n#scroll-view#0;n#view#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#view#1;n#view#1;n#view#0;n#template#0;n#!!top" />
             <element signature="n#style#0;n#swiper#0;n#view#1;n#view#1;n#view#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#6671#6694#0" expanded="true" />
           </folding>
         </state>
       </provider>
