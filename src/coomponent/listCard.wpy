@@ -41,7 +41,7 @@
           letter-spacing: 0;
           line-height: 2;
           font-size: $font-size-xs;
-          color: $color-grey;
+          color: #ccc;
         }
         .list-content__content{
           font-size: $font-size-md;
@@ -49,7 +49,7 @@
       }
       .iconfont {
         font-size: 60rpx;
-        color: #aaa;
+        color: #dddddd;
       }
     }
   }

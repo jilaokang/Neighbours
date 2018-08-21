@@ -1,7 +1,7 @@
 <template>
-  <swiper style="height: 100rpx">
+  <swiper style="height: 100rpx" autoplay="true" interval="2800">
     <swiper-item>
-      <view class="center">
+      <view class="center usercenter" >
         <view class="center-info">
           <view class="center-info__content">
             <view class="iconfont icon-wish"></view>
@@ -47,26 +47,30 @@
 
 <style lang="scss" scoped>
   @import "../static/base";
-   .notice{
-     justify-content: start !important;
-     .iconfont,.notice__content{
-       font-size: 40rpx;
-       color: #C00000;
-       font-weight: 800;
-       margin-right: 10rpx;
-     }
-     .notice__content{
-       font-size: $font-size;
-     }
-   }
+
+  .notice {
+    justify-content: start !important;
+    .iconfont, .notice__content {
+      font-size: 40rpx;
+      color: #C00000;
+      font-weight: 800;
+      margin-right: 10rpx;
+    }
+    .notice__content {
+      font-size: $font-size;
+    }
+  }
 
   .center {
     height: 100rpx;
     padding: 0 30rpx;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     border-radius: 10rpx;
+  }
+  .usercenter{
+    justify-content: space-between !important;
   }
 
   .center-info {
@@ -82,10 +86,10 @@
     font-size: $font-size-md;
     font-weight: 800;
     view {
-                     color: rgba(0,0,0,0.6) !important;
+      color: rgba(0, 0, 0, 0.6) !important;
       /*color: rebeccapurple;*/
     }
-    .iconfont{
+    .iconfont {
       margin-right: 10rpx;
       font-size: 40rpx;
     }

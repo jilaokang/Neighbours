@@ -15,11 +15,11 @@
     }
 
     config = {
-      pages: ['pages/wish/index'],
+      pages: ['pages/chat/index'],
       window: {
         backgroundTextStyle: 'light',
         navigationBarBackgroundColor: '#c00000',
-        navigationBarTitleText: 'WeChat',
+        navigationBarTitleText: '新建社区006测试网格',
         navigationBarTextStyle: '#ffffff'
       },
       // tabBar: {
@@ -39,9 +39,5 @@
       //   ]
       // }
     };
-
-    onLaunch() {
-      console.log('on launch');
-    }
   }
 </script>

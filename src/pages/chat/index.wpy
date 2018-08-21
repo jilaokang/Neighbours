@@ -1,0 +1,388 @@
+<template>
+  <!--pages/wgql/wgql.wxml-->
+  <view style="overflow: hidden;height: 100vh">
+    <scroll-view id="chatMain" scroll-y scroll-top="{{scrollTop}}">
+      <repeat wx:for="{{msgList}}" wx:key="index">
+        <otherMsg wx:if="{{item.content.uid===openId}}" :value.sync="item.content"></otherMsg>
+        <myMsg :value.sync="item.content"></myMsg>
+      </repeat>
+      <view style="height: 8vh"></view>
+    </scroll-view>
+    <!-- 聊天输入框 -->
+    <view class="lv_tabber">
+      <view class="tabber-inputs-box lv_border_top lv_border_bottom">
+        <view class="lv_tabber-inputs">
+          <image class="lv_tabber-img" src="https://wechat.tenqent.com/WebImg/wll-img/yysr.png"></image>
+          <textarea class="lv_textareas lv_border_bottom" fixed="true" value="{{msg}}" @input="getMsg"
+                    cursor-spacing="65"
+                    show-confirm-bar="" maxlength='-1'/>
+          <image class="lv_tabber-img" src="https://wechat.tenqent.com/WebImg/wll-img/xiaolian.png"></image>
+          <image wx:if="{{!(msg && !hideShows)}}" class="wgql_img-mag lv_tabber-img" @tap="isClickMsg"
+                 src="https://wechat.tenqent.com/WebImg/wll-img/tianjia.png"></image>
+          <view wx:if="{{msg && !hideShows}}" class="btn-red btn" @tap="postMsg">发送</view>
+        </view>
+      </view>
+
+      <view wx:if="{{hideShows}}">
+        <swiper style="height:560rpx;" duration="400" indicator-dots="true" bindchange="swiperTab">
+          <swiper-item>
+            <view class="wgql-flex-img wgql-flex-img-mag">
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/tupian.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>照片</text>
+              </view>
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/xiangji.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>拍摄</text>
+              </view>
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/yuyin.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>语音输入</text>
+              </view>
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/wenjian.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>文件</text>
+              </view>
+            </view>
+            <view class="wgql-flex-img">
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/zuobiao.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>我要说事</text>
+              </view>
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/qunzu.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>我要参与</text>
+              </view>
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/daka.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>党员打卡</text>
+              </view>
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/shuazi.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>扫黑除恶</text>
+              </view>
+            </view>
+          </swiper-item>
+          <swiper-item>
+            <view class="wgql-flex-img-b  wgql-flex-img-mag">
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/shoucang.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>收藏</text>
+              </view>
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/liwu.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>有奖问答</text>
+              </view>
+              <view class="wgql-img-box">
+                <navigator class="wgql-navigator" url="">
+                  <view class="wgql-img">
+                    <view class="wgql-img-mag">
+                      <image class="wgql-image" src='https://wechat.tenqent.com/WebImg/wll-img/mingpian.jpg'></image>
+                    </view>
+                  </view>
+                </navigator>
+                <text>名片</text>
+              </view>
+            </view>
+          </swiper-item>
+        </swiper>
+      </view>
+    </view>
+  </view>
+</template>
+
+
+<script>
+
+  import wepy from 'wepy'
+  import otherMsg from '../../coomponent/otherMsg'
+  import myMsg from '../../coomponent/myMsg'
+
+  export default class chat extends wepy.page {
+    components = {
+      otherMsg: otherMsg,
+      myMsg: myMsg
+
+    }
+
+
+    data = {
+      scrollTop: 0,
+      openId: "ozzpg0R__0kGydaB0ToqxB_H39iU",
+      hideShows: false,
+      msg: null,
+      msgList: [],
+      msgData: {
+        type: "chatMessage",
+        data: {
+          mine: {
+            id: "ozzpg0R__0kGydaB0ToqxB_H39iU",
+            wangge_id: "3108",
+            content: "开发测asaSAs 试"
+          },
+          to: {
+            id: "3108",
+            type: "other"
+
+          }
+        }
+      }
+    }
+
+    methods = {
+      isClickMsg() {
+        this.hideShows = !this.hideShows;
+      },
+      getMsg(e) {
+        this.msg = e.detail.value
+        this.msgData.data.mine.content = e.detail.value
+      },
+      postMsg() {
+        let that = this
+        let postMsgData = JSON.stringify(this.msgData)
+        setTimeout(() => {
+          wepy.sendSocketMessage({
+            data: postMsgData
+          })
+            .then(() => {
+              that.msg = null
+            })
+        }, 50)
+      }
+    }
+
+    onShow() {
+      wx.login({
+        success: (res) => {
+          console.log(res.code)
+          let url = `https://wll.tenqent.com/index.php/Api/GetWechatApi/getSessionKey/code/${res.code}.html`
+          wx.request({url: url})
+        }
+      })
+      var loginData = JSON.stringify({
+        type: "init",
+        data: {
+          mine: {
+            id: "ozzpg0R__0kGydaB0ToqxB_H39iU",
+            wangge_id: "3108",
+            avatar: "http://thirdwx.qlogo.cn/mmopen/TNQ9O7FZvcCQKch8eYtsD9zDicibbcj05iakJtia5O9ZEViayNhmSd35xC9U6lkgArm732uDTvFNibLibiagUcUxYpzC8QNlR4jz0Nj4/132",
+            username: "chenpeng"
+          }
+        }
+      })
+
+      wx.connectSocket({url: 'wss://wll.tenqent.com:4431/'})
+
+
+      wx.onSocketOpen(() => {
+        wx.sendSocketMessage({data: loginData})
+
+        wx.onSocketMessage((res) => {
+          let data = JSON.parse((res.data))
+          data.type !== 'ping' ? this.msgList.push(data) : null
+          this.scrollTop = this.scrollTop + 100;
+          this.$apply();
+        })
+      })
+
+      wx.onSocketError((res) => console.log(`error${res}`))
+    }
+  }
+</script>
+
+
+<style lang="scss" scoped>
+  @import "../../static/base";
+
+  #chatMain {
+    background: rgba(0, 0, 0, 0.05);
+    padding-top: 24rpx;
+    height: 88vh;
+    overflow: scroll;
+  }
+
+  /* pages/wgql/wgql.wxss */
+  /* 聊天框 */
+
+  .btn {
+    width: 60rpx;
+    height: 60rpx;
+    font-size: 26rpx;
+    text-align: center;
+  }
+
+  .lv_border_bottom {
+    position: absolute
+  }
+
+  .tabber-inputs-box {
+    position: relative;
+    padding-top: 1rpx
+  }
+
+  .lv_tabber {
+    z-index: 999;
+    background: #fff;
+    border-top: 1rpx solid #efefef;
+    position: absolute;
+    bottom: 0;
+    width: 750rpx
+  }
+
+  .lv_tabber-inputs {
+    display: -webkit-flex;
+    margin: 20rpx 0 0 0;
+    /* padding: 0 0 20rpx 0 */
+  }
+
+  .lv_textareas {
+    position: relative;
+    top: 0rpx;
+    padding-bottom: 10rpx;
+    margin: 10rpx 0 24rpx 0;
+    margin-left: 10rpx;
+    width: 440rpx;
+    height: 60rpx;
+
+  }
+
+  image.wgql_img-mag {
+    margin-left: 0
+  }
+
+  .lv_tabber-img {
+    height: 60rpx;
+    width: 60rpx;
+    margin: 0 20rpx;
+  }
+
+  /* 添加界面 */
+  .hide {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+
+  .wgql-flex-img-mag {
+    margin-top: 40rpx
+  }
+
+  .wgql-flex-img {
+    width: 750rpx;
+    display: -webkit-flex;
+    justify-content: center
+  }
+
+  .wgql-img-box {
+    height: 170rpx;
+    margin: 20rpx 20rpx;
+    text-align: center
+  }
+
+  .wgql-img {
+    width: 100rpx;
+    text-align: center
+  }
+
+  .wgql-navigator {
+    width: 126rpx;
+    border-radius: 32rpx
+  }
+
+  .wgql-img-mag {
+    height: 120rpx;
+    width: 120rpx;
+    border: 2rpx solid #ccc;
+    border-radius: 32rpx;
+    margin-bottom: 10rpx;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center
+  }
+
+  .wgql-image {
+    height: 80rpx;
+    width: 80rpx
+  }
+
+  .wgql-flex-img-b {
+    padding: 0 20rpx 0 40rpx;
+    display: -webkit-flex
+  }
+
+  text {
+    font-size: 26rpx;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis
+  }
+
+  textarea {
+    height: 40rpx;
+    border-bottom: 2rpx solid #eee;
+  }
+</style>

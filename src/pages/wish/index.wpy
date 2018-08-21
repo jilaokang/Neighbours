@@ -53,8 +53,6 @@
 </template>
 
 
-
-
 <script>
   import wepy from 'wepy'
   import wishCard from '../../coomponent/wishCard'
@@ -69,9 +67,6 @@
       listCard: listCard,
       NULL: NULL,
       lastNULL:NULL
-    }
-    data = {
-      height: '5000rpx'
     }
   }
 </script>

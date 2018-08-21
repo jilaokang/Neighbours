@@ -1,0 +1,78 @@
+<template>
+  <view class="MSG">
+    <view class="myMsg">
+      <view class="icon-qipao-copy iconfont"></view>
+      <view class="myMsg__content">{{value.content}}</view>
+    </view>
+    <view class="userInFo">
+      <view class="userInFo__avator">
+        <open-data type="userAvatarUrl"></open-data>
+        <!--<image src="{{value.headimgurl}}" alt="aMsg"></image>-->
+      </view>
+      <view class="userInFo__content">{{value.username}}</view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+
+  export default class myMsg extends wepy.component {
+    props = {
+      value: {}
+    };
+
+    onLoad(){
+      setTimeout(() => {
+        this.$apply();
+      }, 500);
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "../static/base";
+
+  .MSG {
+    display: flex;
+    justify-items: center;
+    justify-content: flex-end;
+    margin-top: 24rpx;
+    margin-right: 18rpx;
+  }
+
+  .myMsg {
+    width: 60vw;
+    .myMsg__content {
+      padding: 18rpx 24rpx;
+      border-radius: 8rpx;
+      word-break: break-word;
+      background: #2E94B9;
+      color: #fff;
+    }
+    .iconfont {
+      font-size: 60rpx;
+      float: right;
+      margin-top: 16rpx;
+      margin-right: -34rpx;
+      color: #2E94B9;
+    }
+  }
+
+  .userInFo {
+    width: 150rpx;
+    .userInFo__avator {
+      margin: 0 auto;
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .userInFo__content {
+      margin-top: 12rpx;
+      text-align: center;
+      font-size: 24rpx;
+      color: $color-grey;
+    }
+  }
+</style>

@@ -1,0 +1,68 @@
+<template>
+  <view>
+  <view class="MSG">
+    <view class="userInFo">
+      <view class="userInFo__avator">
+        <image src="{{value.headimgurl}}" alt="aMsg"></image>
+      </view>
+      <view class="userInFo__content">{{value.username}}</view>
+    </view>
+    <view class="otherMsg">
+      <view class="icon-qipao iconfont"></view>
+      <view class="otherMsg__content">{{value.content}}</view>
+    </view>
+  </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class otherMsg extends wepy.component{
+      props={
+        value:{}
+      }
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "../static/base";
+  .MSG{
+    display: flex;
+    margin-top: 24rpx;
+    margin-left: 18rpx;
+    justify-items: center;
+  }
+  .otherMsg{
+    width: 60vw;
+    .otherMsg__content{
+      padding: 18rpx 24rpx;
+      border-radius: 8rpx;
+      word-break: break-word;
+      background: #fff;
+    }
+
+    .iconfont{
+      font-size: 60rpx;
+      float: left;
+      margin-top: 16rpx;
+      margin-left:-34rpx;
+      color: white;
+    }
+  }
+
+  .userInFo{
+    width: 150rpx;
+    .userInFo__avator,image{
+      margin: 0 auto;
+      width: 80rpx;
+      height: 80rpx;
+      border-radius: 50%;
+    }
+    .userInFo__content{
+      margin-top: 12rpx;
+      text-align: center;
+      font-size: 24rpx;
+      color: $color-grey;
+    }
+  }
+</style>

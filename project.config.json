@@ -4,12 +4,12 @@
 		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
-		"minified": false,
+		"minified": true,
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"appid": "wx851c7ba551d1adff",
-	"projectname": "%E5%AF%B9%E6%88%91%E8%AF%B4%E7%9A%84%E6%92%92%E6%97%A6%E6%92%92",
+	"appid": "wx79c2f8729fa0cf89",
+	"projectname": "%E6%AD%A6%E6%B1%89%E5%BE%AE%E9%A2%86%E9%87%8C",
 	"miniprogramRoot": "./dist",
 	"condition": {}
 }
