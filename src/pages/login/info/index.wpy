@@ -1,0 +1,72 @@
+<template lang="wxml" minapp="native">
+  <view class="container">
+    <view class="row center_middle login-input">
+      <view class="col-3">姓名</view>
+      <view class="col-7">
+        <input type="text" placeholder="姓名">
+      </view>
+    </view>
+    <view class="row center_middle login-input">
+      <view class="col-3">身份</view>
+      <view class="col-7">
+        <radio-group class="radio-group" bindchange="radioChange">
+          <label class="radio" wx:for="{{items}}">
+            <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="row center_middle">
+      <navigator url="/pages/pushdeal/index" hover-class="navigator-hover">
+        <button class="btn" type="primary" loading="{{loading}}" disabled="{{disabled}}" bindtap="onTap">
+          确定
+        </button>
+      </navigator>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  export default class Info extends wepy.page {
+    data = {
+      items: [{
+          name: 'CHN',
+          value: '业主',
+          checked: 'true'
+        },
+        {
+          name: 'BRA',
+          value: '租户'
+        },
+        {
+          name: 'JPN',
+          value: '其他'
+        }
+      ]
+    };
+  }
+
+</script>
+
+<style lang="scss" scoped>
+  .login-input {
+    height: 50px;
+    line-height: 1.55;
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  .radio {
+    margin-right: 3px;
+  }
+
+  .btn,
+  navigator {
+    width: 60%;
+  }
+
+  navigator {
+    margin: 30px auto 30px auto;
+  }
+
+</style>

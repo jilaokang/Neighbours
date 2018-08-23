@@ -1,5 +1,5 @@
 <template>
-  <swiper style="height: 100rpx" autoplay="true" interval="2800">
+  <swiper style="height: 100rpx;" autoplay="true" interval="2800">
     <swiper-item>
       <view class="center usercenter" >
         <view class="center-info">
@@ -38,83 +38,84 @@
 </template>
 
 <script>
-  import wepy from 'wepy'
+import wepy from 'wepy';
 
-  export default class wishHeader extends wepy.component {
-
-  }
+export default class wishHeader extends wepy.component {}
 </script>
 
 <style lang="scss" scoped>
-  @import "../static/base";
+@import '../static/base';
 
-  .notice {
-    justify-content: start !important;
-    .iconfont, .notice__content {
-      font-size: 40rpx;
-      color: #C00000;
-      font-weight: 800;
-      margin-right: 10rpx;
-    }
-    .notice__content {
-      font-size: $font-size;
-    }
-  }
-
-  .center {
-    height: 100rpx;
-    padding: 0 30rpx;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 10rpx;
-  }
-  .usercenter{
-    justify-content: space-between !important;
-  }
-
-  .center-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: $font-size-md;
-  }
-
-  .center-info__content {
-    display: flex;
-    align-items: center;
-    font-size: $font-size-md;
+.notice {
+  justify-content: start !important;
+  background: #ffffff;
+  .iconfont,
+  .notice__content {
+    font-size: 40rpx;
+    color: #c00000;
     font-weight: 800;
-    view {
-      color: rgba(0, 0, 0, 0.6) !important;
-      /*color: rebeccapurple;*/
-    }
-    .iconfont {
-      margin-right: 10rpx;
-      font-size: 40rpx;
-    }
+    margin-right: 10rpx;
   }
+  .notice__content {
+    font-size: $font-size;
+  }
+}
 
-  .center-info__content:first-child {
-    margin-right: 30rpx;
-    view {
-      /*color: brown!important;*/
-    }
-  }
+.center {
+  height: 100rpx;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 10rpx;
+}
+.usercenter {
+  background: #ffffff;
+  justify-content: space-between !important;
+}
 
-  .avator {
-    width: 66rpx;
-    height: 66rpx;
-    border-radius: 50%;
-    overflow: hidden;
-  }
+.center-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-md;
+}
 
-  .userInfo {
-    display: flex;
-    align-items: center;
-    #userInfo__username {
-      font-size: $font-size;
-      margin-right: 16rpx;
-    }
+.center-info__content {
+  display: flex;
+  align-items: center;
+  font-size: $font-size-md;
+  font-weight: 800;
+  view {
+    color: rgba(0, 0, 0, 0.6) !important;
+    /*color: rebeccapurple;*/
   }
+  .iconfont {
+    margin-right: 10rpx;
+    font-size: 40rpx;
+  }
+}
+
+.center-info__content:first-child {
+  margin-right: 30rpx;
+  view {
+    /*color: brown!important;*/
+  }
+}
+
+.avator {
+  width: 66rpx;
+  height: 66rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  #userInfo__username {
+    font-size: $font-size;
+    margin-right: 16rpx;
+  }
+}
 </style>

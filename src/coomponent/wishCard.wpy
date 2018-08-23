@@ -11,67 +11,67 @@
   </view>
 </template>
 <script>
-  import wepy from 'wepy'
-  export default class wish extends wepy.component {
-  }
+import wepy from 'wepy';
+export default class wish extends wepy.component {}
 </script>
 <style lang="scss" scoped>
-  @import "../static/base";
+@import '../static/base';
 
-  navigator{
-    overflow: hidden;
-  }
-  .wish {
-    border-radius: 10rpx;
-    box-shadow: $box-shadow;
-    width: 300rpx;
-    margin-right: 43rpx;
-    overflow: hidden;
-    display: inline-block;
-    word-break: break-all;
-  }
+navigator {
+  overflow: hidden;
+}
 
-  .img {
+.wish {
+  border-radius: 10rpx;
+  box-shadow: $box-shadow;
+  width: 300rpx;
+  margin-right: 43rpx;
+  overflow: hidden;
+  display: inline-block;
+  word-break: break-all;
+}
+
+.img {
+  border-radius: 10rpx 10rpx 0 0;
+  overflow: hidden;
+  position: relative;
+  height: 165rpx;
+  width: 100%;
+  image {
     border-radius: 10rpx 10rpx 0 0;
-    overflow: hidden;
-    position: relative;
-    height: 165rpx;
     width: 100%;
-    image{
-      border-radius: 10rpx 10rpx 0 0;
-      width: 100%;
-      height: 164rpx;
-    }
+    height: 164rpx;
   }
+}
 
-  .imgnav {
-    top: 20rpx;
-    right: 0;
-    position: absolute;
-    overflow: hidden;
-    font-size:$font-size-xs;
-    line-height:2;
-    text-overflow: ellipsis;
-    padding: 0 20rpx;
-    border-radius: 10rpx 0 0 10rpx;
-    background: $color-yellow;
-    color: #fff;
-  }
+.imgnav {
+  top: 20rpx;
+  right: 0;
+  position: absolute;
+  overflow: hidden;
+  font-size: $font-size-xs;
+  line-height: 2;
+  text-overflow: ellipsis;
+  padding: 0 20rpx;
+  border-radius: 10rpx 0 0 10rpx;
+  background: $color-yellow;
+  color: #fff;
+}
 
-  .wish-title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
-    line-height: 2;
-    font-size: $font-size-md;
-  }
+.wish-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  line-height: 2;
+  font-size: $font-size-md;
+}
 
-  .wish-content {
-    overflow: hidden;
-    padding:  0 10px 10px 10px;
-    color: $color-grey;
-    font-size: $font-size-xs;
-    white-space:pre-wrap;
-    word-break: break-word;
-  }
+.wish-content {
+  overflow: hidden;
+  padding: 0 10px 10px 10px;
+  color: $color-grey;
+  font-size: $font-size-xs;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 </style>

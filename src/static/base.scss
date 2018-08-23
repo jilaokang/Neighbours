@@ -1,26 +1,26 @@
 $color-red:#C00000;
 $color-yellow:#F7B32D;
-$bg-color :rgba(0,0,0,0.05);
+$bg-color :rgba(0, 0, 0, 0.05);
 $color-grey:#aaaaaa;
-
 $font-size:26rpx;
 $font-size-xs:20rpx;
 $font-size-md:32rpx;
-
-$box-shadow:0 0 10px rgba(0,0,0,0.1);
-
-view,text{
+$box-shadow:0 0 10px rgba(0, 0, 0, 0.1);
+view,
+text {
   color: #333333;
 }
 
-.container {
-  padding: 28rpx 30rpx;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+page {
+  background: rgba(0, 0, 0, 0.05)
 }
 
-.container-base{
+.container {
+  padding: 0 16px;
+  background: #ffffff
+}
+
+.container-base {
   padding: 28rpx 30rpx;
 }
 
@@ -33,7 +33,7 @@ view,text{
   border-radius: 3px;
 }
 
-.btn-red__empty{
+.btn-red__empty {
   background: #fff;
   color: $color-red;
   border-radius: 3px;
@@ -49,14 +49,14 @@ view,text{
   border-radius: 3px;
 }
 
-.btn-yellow__empty{
+.btn-yellow__empty {
   background: #fff;
   color: $color-yellow;
   border-radius: 3px;
   border: 1px solid $color-yellow;
 }
 
-.btn-xs{
+.btn-xs {
   font-size: 16rpx;
   line-height: 1.55;
   padding: 0 8rpx;
@@ -67,6 +67,7 @@ view,text{
   -webkit-filter: brightness(105%) hue-rotate(350deg);
   filter: brightness(105%) hue-rotate(350deg);
 }
+
 .filter::before {
   content: "";
   display: block;

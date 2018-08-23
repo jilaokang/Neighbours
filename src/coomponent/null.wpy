@@ -3,24 +3,24 @@
 </template>
 
 <script>
-  import wepy from 'wepy'
-  export default class NULL extends  wepy.component{
-    props={
-      Height: {
-        default: '38rpx'
-      },
+import wepy from 'wepy';
+export default class NULL extends wepy.component {
+  props = {
+    Height: {
+      default: '38rpx'
     }
+  };
 
-    onLoad(){
-      console.log(this.Height)
-    }
+  onLoad() {
+    console.log(this.Height);
   }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import "../static/base";
-.null{
+@import '../static/base';
+.null {
   width: 100%;
-  background:$bg-color;
+  background: none;
 }
 </style>

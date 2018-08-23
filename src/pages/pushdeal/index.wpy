@@ -1,0 +1,248 @@
+<template>
+  <view>
+    <view class="row center_middle changeNav">
+      <view class="col-5 {{showBlock?'blockActive':''}}" @tap="isShow">在线报事</view>
+      <view class="col-5 {{showBlock?'':'blockActive'}}" @tap="isShow">我的报事</view>
+    </view>
+    <NULL></NULL>
+
+    <view wx:if="{{showBlock}}">
+      <view class="container">
+        <view class="row center_middle login-input">
+          <view class="col-3">事发地址</view>
+          <view class="col-6">
+            <input style="width:100%" class="col-1" type="text" placeholder="湖北省武汉市江夏区">
+          </view>
+          <view class="iconfont icon-dingwei" style="font-size:30px;color:#999999"></view>
+        </view>
+      </view>
+      <view class="container navTitle">
+        事件描述
+      </view>
+      <view class="container pushContent">
+        <textarea class="row" maxlength="-1" placeholder="请输入要报事内容"></textarea>
+      </view>
+      <view class="container navTitle">
+        上传图片
+      </view>
+      <view class="container pushContent">
+        <view class="icon-tubiaolunkuo- iconfont"></view>
+      </view>
+      <NULL></NULL>
+      <view class="container">
+        <view class="row center_middle login-input">
+          <view class="col-3">是否公开</view>
+          <view class="col-7">
+            <view class="right_middle">
+              <switch checked bindchange="switch1Change" />
+            </view>
+          </view>
+        </view>
+      </view>
+      <NULL></NULL>
+      <navigator url="/pages/wish/index" hover-class="navigator-hover">
+        <view class="container submitButton">
+          <button type="primary">提交</button>
+        </view>
+      </navigator>
+    </view>
+
+    <view wx:if="{{!showBlock}}">
+
+      <navigator url="./detail/index" hover-class="navigator-hover">
+        <view class="container thingCard">
+          <view class="row right_middle">
+            <view class="col-2 col-offset-8 status">
+              待处理
+            </view>
+          </view>
+          <view class="row">
+            <view class="col-2 title">
+              时间
+            </view>
+            <view class="col-8 content">
+              2018年10点12分
+            </view>
+          </view>
+          <view class="row">
+            <view class="col-2 title">
+              地点
+            </view>
+            <view class="col-8 content">
+              湖北省武汉市江夏区喵喵喵街汪汪汪社区
+            </view>
+          </view>
+          <view class="row">
+            <view class="col-2 title">事件</view>
+            <view class="col-8 content">
+              我看见有狗狗在我们猫咪社区随地大小便，想问一下猫猫还有地位嘛！！！mmp!!!!</view>
+          </view>
+        </view>
+      </navigator>
+
+      <view class="container thingCard thingCard-pendding ">
+        <view class="row right_middle">
+          <view class="col-2 col-offset-8 status">
+            处理中
+          </view>
+        </view>
+        <view class="row">
+          <view class="col-2 title">
+            时间
+          </view>
+          <view class="col-8 content">
+            2018年10点12分
+          </view>
+        </view>
+        <view class="row">
+          <view class="col-2 title">
+            地点
+          </view>
+          <view class="col-8 content">
+            湖北省武汉市江夏区喵喵喵街汪汪汪社区
+          </view>
+        </view>
+        <view class="row">
+          <view class="col-2 title">事件</view>
+          <view class="col-8 content">
+            我看见有狗狗在我们猫咪社区随地大小便，想问一下猫猫还有地位嘛！！！mmp!!!!</view>
+        </view>
+      </view>
+      <view class="container thingCard thingCard-done ">
+        <view class="row right_middle">
+          <view class="col-2 col-offset-8 status">
+            已完结
+          </view>
+        </view>
+        <view class="row">
+          <view class="col-2 title">
+            时间
+          </view>
+          <view class="col-8 content">
+            2018年10点12分
+          </view>
+        </view>
+        <view class="row">
+          <view class="col-2 title">
+            地点
+          </view>
+          <view class="col-8 content">
+            湖北省武汉市江夏区喵喵喵街汪汪汪社区
+          </view>
+        </view>
+        <view class="row">
+          <view class="col-2 title">事件</view>
+          <view class="col-8 content">
+            我看见有狗狗在我们猫咪社区随地大小便，想问一下猫猫还有地位嘛！！！mmp!!!!</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import NULL from '../../coomponent/null';
+  export default class PushDeal extends wepy.page {
+    components = {
+      NULL: NULL
+    };
+    data = {
+      showBlock: true
+    };
+    methods = {
+      isShow() {
+        this.showBlock = !this.showBlock;
+      }
+    };
+  }
+
+</script>
+
+<style lang="scss" scoped>
+  .thingCard-done {
+    background: #00a03e;
+    view {
+      color: #ffffff;
+    }
+    .status {
+      font-weight: 800;
+      text-align: center;
+      border-bottom: 3px solid #fff;
+    }
+  }
+
+  .thingCard-pendding {
+    background: #ffa200;
+    view {
+      color: #ffffff;
+    }
+  }
+
+  .thingCard {
+    padding-top: 10px;
+    padding-bottom: 30px !important;
+    margin-bottom: 16px;
+    view {
+      margin-bottom: 2px;
+    }
+    .status {
+      font-weight: 800;
+      text-align: center;
+      border-bottom: 3px solid #fff;
+    }
+    .content {
+      font-size: 14px;
+    }
+    .title {
+      font-size: 16px;
+      text-align: center;
+      font-weight: 800;
+    }
+  }
+
+  .changeNav {
+    height: 50px;
+    background: #ffffff;
+    view {
+      line-height: 50px;
+      text-align: center;
+    }
+  }
+
+  .blockActive {
+    border-bottom: 2px solid #c00000;
+    font-weight: 800
+  }
+
+  .login-input {
+    height: 50px;
+    line-height: 1.55;
+  }
+
+  .navTitle {
+    background: none;
+    color: #999999;
+    line-height: 2.8;
+    font-size: 14px
+  }
+
+  .pushContent {
+    textarea {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: 100%;
+      background: #ffffff;
+    }
+    .iconfont {
+      padding: 10px 0;
+      font-size: 16vw;
+      color: #eeeeee;
+    }
+  }
+
+  .submitButton {
+    background: none;
+  }
+
+</style>

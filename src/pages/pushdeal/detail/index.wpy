@@ -1,0 +1,133 @@
+<template>
+  <view id="main">
+    <view class="container row fedback">
+      <view class="col-10 row">
+        处理
+        <progress percent="80" active />
+      </view>
+      <view class="row">
+        <progress percent="80" active />
+      </view>
+      <view class="col-2">
+        <view class="iconfont icon-done"></view>
+        提交
+      </view>
+      <view class="col-2">
+        <view class="iconfont icon-done"></view>
+        受理
+      </view>
+      <view class="col-2">
+        <view class="iconfont icon-done"></view>
+        处理
+      </view>
+      <view class="col-2">
+        <view class="iconfont icon-user-round-wait"></view>
+        办结
+      </view>
+      <view class="col-2">
+        <view class="iconfont icon-user-round-wait"></view>
+        评价
+      </view>
+      <view class="row">
+      </view>
+    </view>
+
+    <view class="container">
+      <view class="row">评价</view>
+      <view class="row">您的信息已经提交成功，我们已经派遣专业喵喵人员前往</view>
+    </view>
+    <view class="container">
+      <view class="row">报事</view>
+      <view class="row">
+        <view class="col-2 title">
+          时间
+        </view>
+        <view class="col-8 content">
+          2018年10点12分
+        </view>
+      </view>
+      <view class="row">
+        <view class="col-2 title">
+          地点
+        </view>
+      </view>
+      <view class="row">
+        <view class="col-2 title">事件</view>
+        <view class="col-8 content">
+          我看见有狗狗在我们猫咪社区随地大小便，想问一下猫猫还有地位嘛！！！mmp!!!!</view>
+      </view>
+    </view>
+    <view class="container">
+      <view class="row">提交</view>
+      <view class="row">您的信息已经提交成功，我们已经派遣专业喵喵人员前往</view>
+    </view>
+    <view class="container">
+      <view class="row">受理</view>
+      <view class="row">您的信息已经提交成功，我们已经派遣专业喵喵人员前往</view>
+    </view>
+    <view class="container">
+      <view class="row">办理</view>
+      <view class="row">您的信息已经提交成功，我们已经派遣专业喵喵人员前往</view>
+    </view>
+    <view class="container">
+      <view class="row">办结</view>
+      <view class="row">您的信息已经提交成功，我们已经派遣专业喵喵人员前往</view>
+    </view>
+
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import NULL from '../../../coomponent/null';
+  export default class DealDetail extends wepy.page {
+    components = {
+      NULL
+    };
+  }
+
+</script>
+
+<style lang="scss" scoped>
+  #main {
+    padding: {
+      top: 20px;
+      bottom: 20px;
+    }
+    .container {
+      padding: {
+        top: 20px;
+        bottom: 20px;
+      }
+      margin-bottom: 30px;
+      .row:first-child {
+        color: #c00000;
+        font-weight: 800;
+        letter-spacing: 10px;
+        font-size: 22px;
+        line-height: 2
+      }
+      .row {
+        line-height: 1.55;
+        font-size: 14px;
+        .title {
+          font-size: 16px;
+          font-weight: 800;
+        }
+      }
+    }
+  }
+
+  .fedback {
+    font-size: 12px;
+    text-align: center;
+    .iconfont {
+      font-size: 28px;
+      color: #999999;
+    }
+    .icon-done {
+      color: green
+    }
+  }
+
+</style>

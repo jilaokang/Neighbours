@@ -1,43 +1,49 @@
 <style lang="scss">
-  @import '../node_modules/tq-layout/main.scss';
-  @import './static/iconfont';
-  @import "./static/base";
+@import './static/main';
 </style>
 
 <script>
-  import wepy from 'wepy';
-  import 'wepy-async-function';
+import wepy from 'wepy';
+import 'wepy-async-function';
 
-  export default class extends wepy.app {
-    constructor() {
-      super();
-      this.use('promisify');
-    }
-
-    config = {
-      pages: ['pages/phone/index','pages/chat/index','pages/wish/index'],
-      window: {
-        backgroundTextStyle: 'light',
-        navigationBarBackgroundColor: '#c00000',
-        navigationBarTitleText: '新建社区006测试网格',
-        navigationBarTextStyle: '#ffffff'
-      },
-      // tabBar: {
-      //   list: [
-      //     {
-      //       pagePath: 'pages/index',
-      //       text: '首页',
-      //       iconPath: '/static/check-circle.png',
-      //       selectedIconPath: '/static/check-circle.png'
-      //     },
-      //     {
-      //       pagePath: 'pages/index',
-      //       text: '日志',
-      //       iconPath: '/static/check-circle.png',
-      //       selectedIconPath: '/static/check-circle.png'
-      //     }
-      //   ]
-      // }
-    };
+export default class extends wepy.app {
+  constructor() {
+    super();
+    this.use('promisify');
   }
+
+  config = {
+    pages: [
+      'pages/wish/index',
+      'pages/login/index',
+      'pages/pushdeal/detail/index',
+      'pages/pushdeal/index',
+      'pages/login/info/index',
+      'pages/phone/index',
+      'pages/chat/index'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#c00000',
+      navigationBarTitleText: '新建社区006测试网格',
+      navigationBarTextStyle: '#ffffff'
+    }
+    // tabBar: {
+    //   list: [
+    //     {
+    //       pagePath: 'pages/index',
+    //       text: '首页',
+    //       iconPath: '/static/check-circle.png',
+    //       selectedIconPath: '/static/check-circle.png'
+    //     },
+    //     {
+    //       pagePath: 'pages/index',
+    //       text: '日志',
+    //       iconPath: '/static/check-circle.png',
+    //       selectedIconPath: '/static/check-circle.png'
+    //     }
+    //   ]
+    // }
+  };
+}
 </script>
