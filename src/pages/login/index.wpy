@@ -67,46 +67,44 @@
   </view>
 </template>
 <script>
-  import wepy from 'wepy';
-  import NULL from '../../coomponent/null';
-  export default class Login extends wepy.page {
-    components = {
-      NULL: NULL
-    };
-  }
-
+import wepy from 'wepy';
+import NULL from '../../coomponent/null';
+export default class Login extends wepy.page {
+  components = {
+    NULL: NULL
+  };
+}
 </script>
 <style lang="scss" scoped>
-  .login-input {
+.login-input {
+  height: 50px;
+  line-height: 1.55;
+  border-bottom: 1px solid #efefef;
+}
+
+.gridListCard {
+  height: 88px;
+  border-bottom: 1px solid #efefef;
+  image {
+    width: 50px;
     height: 50px;
-    line-height: 1.55;
-    border-bottom: 1px solid #eeeeee;
+    border-radius: 50%;
   }
-
-  .gridListCard {
-    height: 88px;
-    border-bottom: 1px solid #eeeeee;
-    image {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+  .content {
+    .community {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
-    .content {
-      .community {
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: 1px;
-      }
-      .admin,
-      .location {
-        font-size: 14px;
-        color: #aaaaaa
-      }
-    }
-    .iconfont {
-      font-size: 30px;
-      color: #dddddd
+    .admin,
+    .location {
+      font-size: 14px;
+      color: #aaaaaa;
     }
   }
-
+  .iconfont {
+    font-size: 30px;
+    color: #dddddd;
+  }
+}
 </style>

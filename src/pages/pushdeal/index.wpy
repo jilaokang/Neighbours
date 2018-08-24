@@ -1,8 +1,8 @@
 <template>
   <view>
     <view class="row center_middle changeNav">
-      <view class="col-5 {{showBlock?'blockActive':''}}" @tap="isShow">在线报事</view>
-      <view class="col-5 {{showBlock?'':'blockActive'}}" @tap="isShow">我的报事</view>
+      <view class="col-5 {{showBlock?'blockActive':''}}" @tap="isShow(1)">在线报事</view>
+      <view class="col-5 {{showBlock?'':'blockActive'}}" @tap="isShow(0)">我的报事</view>
     </view>
     <NULL></NULL>
 
@@ -141,108 +141,106 @@
 </template>
 
 <script>
-  import wepy from 'wepy';
-  import NULL from '../../coomponent/null';
-  export default class PushDeal extends wepy.page {
-    components = {
-      NULL: NULL
-    };
-    data = {
-      showBlock: true
-    };
-    methods = {
-      isShow() {
-        this.showBlock = !this.showBlock;
-      }
-    };
-  }
-
+import wepy from 'wepy';
+import NULL from '../../coomponent/null';
+export default class PushDeal extends wepy.page {
+  components = {
+    NULL: NULL
+  };
+  data = {
+    showBlock: true
+  };
+  methods = {
+    isShow(e) {
+      this.showBlock = e == 0 ? false : true;
+    }
+  };
+}
 </script>
 
 <style lang="scss" scoped>
-  .thingCard-done {
-    background: #00a03e;
-    view {
-      color: #ffffff;
-    }
-    .status {
-      font-weight: 800;
-      text-align: center;
-      border-bottom: 3px solid #fff;
-    }
+.thingCard-done {
+  background: #00a03e;
+  view {
+    color: #ffffff;
   }
-
-  .thingCard-pendding {
-    background: #ffa200;
-    view {
-      color: #ffffff;
-    }
+  .status {
+    font-weight: 800;
+    text-align: center;
+    border-bottom: 3px solid #fff;
   }
+}
 
-  .thingCard {
+.thingCard-pendding {
+  background: #ffa200;
+  view {
+    color: #ffffff;
+  }
+}
+
+.thingCard {
+  padding-top: 10px;
+  padding-bottom: 30px !important;
+  margin-bottom: 16px;
+  view {
+    margin-bottom: 2px;
+  }
+  .status {
+    font-weight: 800;
+    text-align: center;
+    border-bottom: 3px solid #fff;
+  }
+  .content {
+    font-size: 14px;
+  }
+  .title {
+    font-size: 16px;
+    text-align: center;
+    font-weight: 800;
+  }
+}
+
+.changeNav {
+  height: 50px;
+  background: #ffffff;
+  view {
+    line-height: 50px;
+    text-align: center;
+  }
+}
+
+.blockActive {
+  border-bottom: 2px solid #c00000;
+  font-weight: 800;
+}
+
+.login-input {
+  height: 50px;
+  line-height: 1.55;
+}
+
+.navTitle {
+  background: none;
+  color: #999999;
+  line-height: 2.8;
+  font-size: 14px;
+}
+
+.pushContent {
+  textarea {
     padding-top: 10px;
-    padding-bottom: 30px !important;
-    margin-bottom: 16px;
-    view {
-      margin-bottom: 2px;
-    }
-    .status {
-      font-weight: 800;
-      text-align: center;
-      border-bottom: 3px solid #fff;
-    }
-    .content {
-      font-size: 14px;
-    }
-    .title {
-      font-size: 16px;
-      text-align: center;
-      font-weight: 800;
-    }
-  }
-
-  .changeNav {
-    height: 50px;
+    padding-bottom: 10px;
+    width: 100%;
     background: #ffffff;
-    view {
-      line-height: 50px;
-      text-align: center;
-    }
   }
-
-  .blockActive {
-    border-bottom: 2px solid #c00000;
-    font-weight: 800
+  .iconfont {
+    padding: 10px 0;
+    font-size: 16vw;
+    color: #eeeeee;
   }
+}
 
-  .login-input {
-    height: 50px;
-    line-height: 1.55;
-  }
-
-  .navTitle {
-    background: none;
-    color: #999999;
-    line-height: 2.8;
-    font-size: 14px
-  }
-
-  .pushContent {
-    textarea {
-      padding-top: 10px;
-      padding-bottom: 10px;
-      width: 100%;
-      background: #ffffff;
-    }
-    .iconfont {
-      padding: 10px 0;
-      font-size: 16vw;
-      color: #eeeeee;
-    }
-  }
-
-  .submitButton {
-    background: none;
-  }
-
+.submitButton {
+  background: none;
+}
 </style>

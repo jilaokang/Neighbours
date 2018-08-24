@@ -4,17 +4,16 @@
 
     <NULL></NULL>
     <!-- 微心愿 -->
-    <view class="container">
-      <view class="nav-title">
+    <view class="container nav-title">
+ 
         <view class="middle nav-title__content">
           <view class="nav-title__img iconfont icon-wish" style="color: brown"></view>
           微心愿
         </view>
-        <!--<navigator class="btn-yellow btn-yellow__empty btn-xs" url="../">订阅</navigator>-->
-      </view>
-      <!-- <navigator class="push" url="../">发布心愿
+        <!-- <navigator class="btn-yellow btn-yellow__empty btn-xs" url="../">订阅</navigator> -->
+      <navigator class="push" url="/pages/wish/push/index">发布心愿
         <text class="iconfont icon-qianjinxiayige"></text>
-      </navigator> -->
+      </navigator>
     </view>
     <scroll-view class="scroll" scroll-x scroll-with-animation="true">
       <wishCard></wishCard>
@@ -23,18 +22,17 @@
     </scroll-view>
     <NULL></NULL>
     <view class="deal">
-      <view class="container">
-        <view class="nav-title">
+      <view class="container nav-title">
           <view class="middle nav-title__content">
             <view class="nav-title__img nav-title__imgb icon-jiankaoanpai iconfont"
                   style="color: rebeccapurple;"></view>
             微治理
-          </view>
           <!--<navigator class="btn-yellow btn-yellow__empty btn-xs" url="../">订阅</navigator>-->
         </view>
-        <!-- <navigator class="push" url="../">发布治理
+        <navigator class="push" url="/pages/wish/push/index">
+        发布治理
           <text class="iconfont icon-qianjinxiayige"></text>
-        </navigator> -->
+        </navigator>
       </view>
       <view>
         <listCard></listCard>
@@ -82,8 +80,8 @@ export default class wish extends wepy.page {
 }
 .nav-title {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-end;
 }
 
 .middle {

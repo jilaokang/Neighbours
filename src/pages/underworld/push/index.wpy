@@ -1,0 +1,103 @@
+<template>
+  <view>
+    <view class="container section">
+      <view class="row title">
+        喵喵社区被黑恶势力强占！悬赏十包猫粮收集证据！
+      </view>
+      <view class="row info">
+        <view class="row pushPerson">喵喵市社区</view>
+        <view class="row time">2018年8月8日</view>
+      </view>
+      <view class="row content">
+        近日喵喵警方接到群众信息，表示喵喵社区存在大量狗子黑势力，强行霸占猫猫社区的资源，不规范使用，侵占损坏他人财产，现向全市征集线索。
+      </view>
+    </view>
+    <NULL></NULL>
+    <view class="container push">
+      <view class="row">
+        <textarea name="" id="" cols="30" rows="10" maxlength="-1"></textarea>
+      </view>
+      <view class="row">
+        <view class="login-input">
+          附件
+          <button size="mini">文件上传</button>
+        </view>
+      </view>
+      <view class="row submit">
+        <button type="primary">提交</button>
+      </view>
+    </view>
+  </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import NULL from '../../../coomponent/null';
+  export default class underworld extends wepy.page {
+    components = {
+      NULL: NULL
+    };
+  }
+
+</script>
+
+<style lang="scss" scoped>
+  .login-input {
+    line-height: 1.55;
+    font-size: 14px;
+    padding: 20px 0;
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    button {
+      font-size: 10px;
+      margin-left: 8px;
+      padding: 0 6px;
+    }
+  }
+
+  .submit {
+    margin: 10px auto;
+    button {
+      width: 60%;
+    }
+  }
+
+  .section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    .title {
+      line-height: 1.55;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+    .info {
+      font-size: 14px;
+      .pushPerson {
+        color: #cccccc;
+        margin-right: 14px;
+      }
+      .time {
+        color: #cccccc;
+      }
+    }
+    .content {
+      font-size: 16px;
+      line-height: 1.55;
+    }
+  }
+
+  .push {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    textarea {
+      width: 100%;
+      border: 1px solid #efefef;
+      border-radius: 3px;
+      padding: 10px 16px;
+    }
+  }
+
+</style>

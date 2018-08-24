@@ -14,17 +14,21 @@ export default class extends wepy.app {
 
   config = {
     pages: [
+      'pages/wish/detail/index',
       'pages/wish/index',
+      'pages/wish/push/index',
+      'pages/underworld/push/index',
+      'pages/underworld/index',
+      'pages/pushdeal/index',
       'pages/login/index',
       'pages/pushdeal/detail/index',
-      'pages/pushdeal/index',
       'pages/login/info/index',
       'pages/phone/index',
       'pages/chat/index'
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#c00000',
+      navigationBarBackgroundColor: '#444444',
       navigationBarTitleText: '新建社区006测试网格',
       navigationBarTextStyle: '#ffffff'
     }

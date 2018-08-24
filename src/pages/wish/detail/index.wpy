@@ -1,0 +1,95 @@
+<template>
+  <view>
+    <view class="container thingCard">
+      <view class="title" style="line-height: 3">
+        喵喵社区的救赎
+      </view>
+      <view class="row">
+        <view class="col-2 title">
+          时间
+        </view>
+        <view class="col-8 content">
+          2018年10点12分
+        </view>
+      </view>
+      <view class="row">
+        <view class="col-2 title">
+          地点
+        </view>
+        <view class="col-8 content">
+          湖北省武汉市江夏区喵喵喵街汪汪汪社区
+        </view>
+      </view>
+      <view class="row">
+        <view class="col-2 title">事件</view>
+        <view class="col-8 content">
+          我看见有狗狗在我们猫咪社区随地大小便，想问一下猫猫还有地位嘛！！！mmp!!!!</view>
+      </view>
+    </view>
+    <view class="container section">
+      <view class="row">状态：已审核
+      </view>
+    </view>
+    <NULL></NULL>
+    <view class="container section">
+      <view class="row">
+        <view class="col-3">认领人回复</view>
+        <view class="col-7">狗狗已经处理完毕，请同志们放心，狗狗已经处理完毕，请同志们放心，狗狗已经处理完毕，请同志们放心。</view>
+      </view>
+    </view>
+    <NULL></NULL>
+    <view class="container section">
+      <view class="row">
+        <view class="col-3">居民评价</view>
+        <view class="col-7">skr skr skr</view>
+      </view>
+      <view class="row">
+        <view class="col-3">居民回复</view>
+        <view class="col-7">狗狗已经处理完毕，请同志们放心，狗狗已经处理完毕，请同志们放心，狗狗已经处理完毕，请同志们放心。</view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import NULL from '../../../coomponent/null'
+
+  export default class WishDetail extends wepy.page {
+    components = {
+      NULL: NULL
+    }
+  }
+
+</script>
+
+<style lang="scss" scoped>
+  .thingCard {
+    padding-top: 30px;
+    padding-bottom: 30px !important;
+    margin-bottom: 16px;
+    view {
+      margin-bottom: 2px;
+    }
+    .status {
+      font-weight: 800;
+      border-bottom: 3px solid #fff;
+    }
+    .content {
+      font-size: 14px;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: 800;
+    }
+  }
+
+  .section {
+    .row {
+      padding-top: 18px;
+      padding-bottom: 18px;
+      font-size: 15px;
+    }
+  }
+
+</style>

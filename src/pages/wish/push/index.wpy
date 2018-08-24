@@ -1,0 +1,81 @@
+<template>
+  <view class="container">
+    <view class="title row">
+      心愿标题
+    </view>
+    <view class="inputCtrl row">
+      <input type="text" placeholder="">
+    </view>
+    <view class="title row">
+      心愿内容
+    </view>
+    <view class="inputCtrl row">
+      <textarea name="" id="" cols="30" rows="10"></textarea>
+    </view>
+    <view class="title row">
+      姓名
+    </view>
+    <view class="inputCtrl row">
+      <input type="text" placeholder="">
+    </view>
+    <view class="title row">
+      联系方式
+    </view>
+    <view class="inputCtrl row">
+      <input type="text" placeholder="">
+    </view>
+    <view class="title row">
+      网格
+    </view>
+    <view class="inputCtrl row">
+      <input type="text" placeholder="">
+    </view>
+    <view class="title row">
+      照片
+    </view>
+    <view class="inputCtrl row">
+      <input type="text" placeholder="">
+    </view>
+    <view class="row submit">
+      <button type="primary">心愿提交</button>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  export default class WishPush extends wepy.page {}
+
+</script>
+
+<style lang="scss" scoped>
+  .container {
+    background: none;
+    padding-top: 8px;
+    .title {
+      margin-top: 12px;
+      font-size: 16px;
+      color: #999999;
+      margin-bottom: 6px;
+    }
+    input,
+    textarea {
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 3px;
+    }
+  }
+
+  .submit {
+    button {
+      margin: {
+        top: 20px;
+        bottom: 80px;
+      }
+      width: 100%;
+    }
+  }
+
+</style>

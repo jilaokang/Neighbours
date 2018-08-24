@@ -29,11 +29,12 @@ export default class listCard extends wepy.component {}
     width: 100%;
     display: flex;
     border-radius: 10rpx;
-    padding: 18rpx 32rpx;
-    box-shadow: $box-shadow;
+    // box-shadow: $box-shadow;
+    border: 1rpx solid #efefef;
     justify-content: space-between;
     align-items: center;
     .list-content {
+      padding: 18rpx 32rpx;
       line-height: 1.55;
       letter-spacing: 4rpx;
       .list-content__info {
