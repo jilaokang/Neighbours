@@ -40,7 +40,6 @@
         <listCard></listCard>
       </view>
     </view>
-
     <lastNULL Height="188rpx"></lastNULL>
   </view>
 </template>

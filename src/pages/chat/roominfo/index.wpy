@@ -1,0 +1,57 @@
+<template>
+  <view>
+    <view class="container">
+      <view class="row">
+        <view class="col-2">
+          <view>
+            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
+            <view>司法</view>
+          </view>
+          <view>name</view>
+        </view>
+        <view class="col-2">
+          <view>
+            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
+            <view>司法</view>
+          </view>
+          <view>name</view>
+        </view>
+        <view class="col-2">
+          <view>
+            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
+            <view>司法</view>
+          </view>
+          <view>name</view>
+        </view>
+        <view class="col-2">
+          <view>
+            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
+            <view>司法</view>
+          </view>
+          <view>name</view>
+        </view>
+        <view class="col-2">
+          <view>
+            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
+            <view>司法</view>
+          </view>
+          <view>name</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  export default class RoomInfo extends wepy.page {}
+
+</script>
+
+<style scoped>
+  image {
+    width: 30px;
+    height: 30px;
+  }
+
+</style>

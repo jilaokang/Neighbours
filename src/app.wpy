@@ -14,17 +14,32 @@ export default class extends wepy.app {
 
   config = {
     pages: [
-      'pages/wish/detail/index',
+      // 聊天部分
+      'pages/chat/index',
+      'pages/chat/roominfo/index',
+      // 微心愿
       'pages/wish/index',
+      'pages/wish/center/index',
+      'pages/wish/check/index',
+      'pages/wish/detail/index',
+      'pages/wish/fedback/index',
+      'pages/wish/get/index',
+      'pages/wish/mygot/index',
       'pages/wish/push/index',
+      'pages/wish/reply/index',
+
+      // 我要报事
+      'pages/pushdeal/index',
+      'pages/pushdeal/detail/index',
+      // 扫黑除恶
       'pages/underworld/push/index',
       'pages/underworld/index',
-      'pages/pushdeal/index',
+
+      // 登录页面
       'pages/login/index',
-      'pages/pushdeal/detail/index',
       'pages/login/info/index',
-      'pages/phone/index',
-      'pages/chat/index'
+      // 登录验证
+      'pages/phone/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -32,22 +47,6 @@ export default class extends wepy.app {
       navigationBarTitleText: '新建社区006测试网格',
       navigationBarTextStyle: '#ffffff'
     }
-    // tabBar: {
-    //   list: [
-    //     {
-    //       pagePath: 'pages/index',
-    //       text: '首页',
-    //       iconPath: '/static/check-circle.png',
-    //       selectedIconPath: '/static/check-circle.png'
-    //     },
-    //     {
-    //       pagePath: 'pages/index',
-    //       text: '日志',
-    //       iconPath: '/static/check-circle.png',
-    //       selectedIconPath: '/static/check-circle.png'
-    //     }
-    //   ]
-    // }
   };
 }
 </script>

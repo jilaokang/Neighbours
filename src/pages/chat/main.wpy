@@ -1,0 +1,179 @@
+<template>
+  <view>
+    <view class="container">
+      <view style=""></view>
+    </view>
+    <view class="container ChatInput">
+      <view class="row">
+        <view class="col-1">
+          <view class="iconfont icon-me"></view>
+        </view>
+        <view class="chatArea">
+          <textarea rows="1" auto-height @focus="isShow(isShowFooterArea)" @blur="isHidden(isShowFooterArea)" show-confirm-bar=""></textarea>
+        </view>
+        <view class="item-3">
+          <view class="row">
+            <view class="col-5">
+              <view class="iconfont icon-me"></view>
+            </view>
+            <view class="col-5" @tap="isShow(isShowFooterFn)">
+              <view class="iconfont icon-me"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{isShowFooterFn}}" class="ChatSwiper">
+      <swiper indicator-dots="true">
+        <swiper-item>
+          <view class="container">
+            <view class="row center_middle">
+              <view class="item-3">
+                <navigator class="navigator" url="">
+                  <view class="iconBlock">
+                    <view class="iconfont icon-me"></view>
+                    <view class="iconfontNav">四字标题</view>
+                  </view>
+                </navigator>
+              </view>
+              <view class="item-3">
+                <navigator class="navigator" url="">
+                  <view class="iconBlock">
+                    <view class="iconfont icon-me"></view>
+                    <view class="iconfontNav">四字标题</view>
+                  </view>
+                </navigator>
+              </view>
+              <view class="item-3">
+                <navigator class="navigator" url="">
+                  <view class="iconBlock">
+                    <view class="iconfont icon-me"></view>
+                    <view class="iconfontNav">四字标题</view>
+                  </view>
+                </navigator>
+              </view>
+              <view class="item-3">
+                <navigator class="navigator" url="">
+                  <view class="iconBlock">
+                    <view class="iconfont icon-me"></view>
+                    <view class="iconfontNav">四字标题</view>
+                  </view>
+                </navigator>
+              </view>
+              <view class="item-3">
+                <navigator class="navigator" url="">
+                  <view class="iconBlock">
+                    <view class="iconfont icon-me"></view>
+                    <view class="iconfontNav">四字标题</view>
+                  </view>
+                </navigator>
+              </view>
+              <view class="item-3">
+                <navigator class="navigator" url="">
+                  <view class="iconBlock">
+                    <view class="iconfont icon-me"></view>
+                    <view class="iconfontNav">四字标题</view>
+                  </view>
+                </navigator>
+              </view>
+              <view class="item-3">
+                <navigator class="navigator" url="">
+                  <view class="iconBlock">
+                    <view class="iconfont icon-me"></view>
+                    <view class="iconfontNav">四字标题</view>
+                  </view>
+                </navigator>
+              </view>
+              <view class="item-3">
+                <navigator class="navigator" url="">
+                  <view class="iconBlock">
+                    <view class="iconfont icon-me"></view>
+                    <view class="iconfontNav">四字标题</view>
+                  </view>
+                </navigator>
+              </view>
+            </view>
+          </view>
+        </swiper-item>
+        <swiper-item>
+          <view class="item-3">
+            <navigator class="navigator" url="">
+              <view class="iconBlock">
+                <view class="iconfont icon-me"></view>
+                <view class="iconfontNav">四字标题</view>
+              </view>
+            </navigator>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+
+    <!-- <view wx:if="{{isShowFooterArea}}" style="height:50vh"></view> -->
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Chat extends wepy.page {
+  data = {
+    isShowFooterFn: false,
+    isShowFooterArea: false
+  };
+  methods = {
+    isShow: value => (this[value] = true),
+    isHidden: value => (this[value] = false)
+  };
+}
+</script>
+
+<style lang="scss" scoped>
+.ChatInput {
+  height: 10vh;
+  .chatArea {
+    width: 60%;
+    padding: 3px 6px;
+    textarea {
+      font-size: 20px;
+      border-bottom: 1px solid #ededed;
+      width: 100%;
+      text-align: left;
+    }
+  }
+  view {
+    text-align: center;
+  }
+  .iconfont {
+    font-size: 24px;
+  }
+}
+
+.ChatSwiper {
+  swiper {
+    height: 200px;
+    background: #fff;
+  }
+  .item-3 {
+    .navigator {
+      padding: 6px;
+    }
+    .iconBlock {
+      padding: 10px;
+      border: 1px solid #000000;
+      border-radius: 3px;
+      view {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .iconfont {
+      font-size: 32px;
+    }
+    .iconfontNav {
+      font-size: 12px;
+    }
+  }
+}
+</style>
