@@ -1,110 +1,31 @@
-<template lang="wxml" minapp="native">
-  <view>
-    <view class="container">
-      <view class="row center_middle login-input">
-        <view class="col-3">所属区域</view>
-        <view class="col-7">
-          <input type="text" placeholder="武昌区">
-        </view>
-      </view>
-      <view class="row center_middle login-input">
-        <view class="col-3">街道</view>
-        <view class="col-7">
-          <input type="text" placeholder="紫阳街">
-        </view>
-      </view>
-      <view class="row center_middle login-input">
-        <view class="col-3">社区</view>
-        <view class="col-7">
-          <input type="text" placeholder="水路社区">
-        </view>
-      </view>
-    </view>
-    <NULL></NULL>
-    <view class="container">
-
-      <navigator url="/pages/login/info/index" hover-class="navigator-hover">
-        <view class="row gridListCard center_middle">
-          <view class="col-2">
-            <view class="center_middle">
-              <image lazy-load src="https://tse4.mm.bing.net/th?id=OIP.y91Dn5xlrCnzgMGWsXCypAHaHa&pid=Api"></image>
-            </view>
-          </view>
-          <view class="col-7 content">
-            <view class="community">水路小区</view>
-            <!-- <view class="admin">管理员：刘芳 18086407838</view> -->
-            <view class="location">地址：福新路22号水路社区6栋</view>
-          </view>
-          <view class="col-1 iconfont icon-ai226"></view>
-        </view>
+<template>
+  <view class="container">
+    <view class="row center_middle">
+      <navigator url="/pages/login/admin" hover-class="navigator-hover">
+        <button>网格员注册</button>
       </navigator>
-
-      <view class="row gridListCard center_middle">
-        <view class="col-2">
-          <view class="center_middle">
-            <image lazy-load src="https://tse2.mm.bing.net/th?id=OIP.0sZxglBCS1V0T73uXDfxJQAAAA&pid=Api"></image>
-          </view>
-        </view>
-        <view class="col-7 content">
-          <view class="community">水路小区</view>
-          <view class="location">地址：福新路22号水路社区6栋</view>
-        </view>
-        <view class="col-1 iconfont icon-ai226"></view>
-      </view>
-      <view class="row gridListCard center_middle">
-        <view class="col-2">
-          <view class="center_middle">
-            <image lazy-load src="https://tse2.mm.bing.net/th?id=OIP.0sZxglBCS1V0T73uXDfxJQAAAA&pid=Api"></image>
-          </view>
-        </view>
-        <view class="col-7 content">
-          <view class="community">水路小区</view>
-          <view class="location">地址：福新路22号水路社区6栋</view>
-        </view>
-        <view class="col-1 iconfont icon-ai226"></view>
-      </view>
+    </view>
+    <view class="row center_middle">
+      <navigator url="/pages/login/people" hover-class="navigator-hover">
+        <button>居民注册</button>
+      </navigator>
     </view>
   </view>
 </template>
+
 <script>
 import wepy from 'wepy';
-import NULL from '../../coomponent/null';
-export default class Login extends wepy.page {
-  components = {
-    NULL: NULL
-  };
-}
+export default class LoginType extends wepy.page {}
 </script>
-<style lang="scss" scoped>
-.login-input {
-  height: 50px;
-  line-height: 1.55;
-  border-bottom: 1px solid #efefef;
-}
 
-.gridListCard {
-  height: 88px;
-  border-bottom: 1px solid #efefef;
-  image {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  .content {
-    .community {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-    .admin,
-    .location {
-      font-size: 14px;
-      color: #aaaaaa;
-    }
-  }
-  .iconfont {
-    font-size: 30px;
-    color: #dddddd;
+<style lang="scss" scoped>
+.container {
+  height: 70vh;
+  padding-top: 30vh;
+  overflow: hidden;
+  .row navigator {
+    margin-bottom: 20px;
+    width: 70%;
   }
 }
 </style>

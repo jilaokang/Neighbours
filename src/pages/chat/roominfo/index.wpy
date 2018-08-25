@@ -1,54 +1,117 @@
 <template>
   <view>
-    <view class="container">
+    <view class="container" id="avatar">
       <view class="row">
-        <view class="col-2">
-          <view>
-            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
-            <view>司法</view>
-          </view>
-          <view>name</view>
-        </view>
-        <view class="col-2">
-          <view>
-            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
-            <view>司法</view>
-          </view>
-          <view>name</view>
-        </view>
-        <view class="col-2">
-          <view>
-            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
-            <view>司法</view>
-          </view>
-          <view>name</view>
-        </view>
-        <view class="col-2">
-          <view>
-            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
-            <view>司法</view>
-          </view>
-          <view>name</view>
-        </view>
-        <view class="col-2">
-          <view>
-            <image src="https://tse2-mm.cn.bing.net/th?id=OIP.KDOadpAwh5BrBJxeob8wAgAAAA&pid=Api" />
-            <view>司法</view>
-          </view>
-          <view>name</view>
+        <avatar></avatar>
+        <avatar></avatar>
+        <avatar></avatar>
+        <avatar></avatar>
+        <avatar></avatar>
+        <avatar></avatar>
+        <avatar></avatar>
+        <avatar></avatar>
+        <view class="col-2 avatar-add">
+          <view class="iconfont icon-zhankai"></view>
         </view>
       </view>
     </view>
+  </view>
+  <NULL></NULL>
+  <view class="container login-input">
+    <view class="row center_middle">
+      <view class="col-3">群聊名称</view>
+      <view class="col-7">
+        <input type="text" maxlength="7" placeholder="红色小区网格OO2">
+      </view>
+    </view>
+  </view>
+  <view class="container login-input">
+    <view class="row center_middle">
+      <view class="col-3">群二维码</view>
+      <view class="col-7">
+        <view class="iconfont icon-msnui-qr-code"></view>
+      </view>
+    </view>
+  </view>
+  <view class="container login-input">
+    <view class="row center_middle">
+      <view class="col-3">群公告</view>
+      <view class="col-7">
+        <textarea auto-height style="width:100%" maxlength="-1" show-confirm-bar="" placeholder="填写群公告" />
+      </view>
+    </view>
+  </view>
+  <NULL></NULL>
+  <view class="container login-input">
+    <view class="row center_middle">
+      <view class="col-3">我在本群的昵称</view>
+      <view class="col-7">
+        <input type="text" placeholder="钱博康">
+      </view>
+    </view>
+  </view>
+  <view class="container login-input">
+    <view class="row center_middle">
+      <view class="col-3">不接受居民私聊</view>
+      <view class="col-7">
+        <switch bindchange="switch1Change" />
+      </view>
+    </view>
+  </view>
+  <view class="container exit">
+    <button class="col-10" type="warn">退出群聊</button>
+  </view>
   </view>
 </template>
 
 <script>
   import wepy from 'wepy';
-  export default class RoomInfo extends wepy.page {}
+  import avatar from '../../../coomponent/avatar';
+  import NULL from '../../../coomponent/null';
+  export default class RoomInfo extends wepy.page {
+    components = {
+      avatar: avatar,
+      NULL: NULL
+    };
+  }
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .avatar-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .iconfont {
+      font-size: 23px;
+
+      padding: 10px;
+      border-radius: 3px;
+      color: #dddddd;
+      border: 1px solid #dddddd;
+    }
+  }
+
+  .exit {
+    background: none;
+    margin: 30px 0;
+  }
+
+  .login-input {
+    .row {
+      font-size: 14px;
+      .col-7 {
+        text-align: right
+      }
+    }
+    padding: {
+      top: 10px;
+      bottom: 10px;
+    }
+    line-height: 1.55;
+    border-bottom: 1px solid #efefef;
+  }
+
   image {
     width: 30px;
     height: 30px;

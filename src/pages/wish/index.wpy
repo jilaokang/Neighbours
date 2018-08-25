@@ -1,11 +1,9 @@
 <template>
   <view class="page">
     <wishHeader></wishHeader>
-
     <NULL></NULL>
     <!-- 微心愿 -->
     <view class="container nav-title">
- 
         <view class="middle nav-title__content">
           <view class="nav-title__img iconfont icon-wish" style="color: brown"></view>
           微心愿
@@ -41,6 +39,7 @@
       </view>
     </view>
     <lastNULL Height="188rpx"></lastNULL>
+    <!-- <FooterNav></footerNav> -->
   </view>
 </template>
 
@@ -51,6 +50,7 @@ import wishCard from '../../coomponent/wishCard';
 import wishHeader from '../../coomponent/wishHeader';
 import listCard from '../../coomponent/listCard';
 import NULL from '../../coomponent/null';
+import FooterNav from '../../coomponent/footer';
 
 export default class wish extends wepy.page {
   components = {
@@ -58,7 +58,8 @@ export default class wish extends wepy.page {
     wishHeader: wishHeader,
     listCard: listCard,
     NULL: NULL,
-    lastNULL: NULL
+    lastNULL: NULL,
+    FooterNav: FooterNav
   };
 }
 </script>

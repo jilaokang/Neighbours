@@ -1,0 +1,43 @@
+<template>
+  <view class="weui-footer">
+    <view class="weui-footer__links row center_middle">
+      <navigator href="javascript:;" class="wepy_navigator weui-footer__link">更新日志</navigator>
+      <text class="weui-footer__link"> | </text>
+      <navigator href="javascript:;" class="wepy_navigator weui-footer__link">建议反馈</navigator>
+    </view>
+    <view class="weui-footer__text">Copyright © 20018 腾青科技</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  export default class footerNav extends wepy.component {}
+
+</script>
+
+<style lang="scss" scoped>
+  .weui-footer {
+    position: fixed;
+    bottom: 0.52em;
+    left: 0;
+    right: 0;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .weui-footer {
+    margin-bottom: 50px;
+  }
+
+  .weui-footer__text {
+    color: #999999;
+    padding: 0 0.34em;
+    font-size: 12px;
+  }
+
+  .weui-footer__link {
+    color: #999999;
+    margin: auto 3px;
+  }
+
+</style>

@@ -1,7 +1,7 @@
 <template>
   <view>
     <view class="row center_middle changeNav">
-      <view class="col-5 {{showBlock?'blockActive':''}}" @tap="isShow(1)">扫黑除恶</view>
+      <view class="col-5 {{showBlock?'blockActive':''}}" @tap="isShow(1)">案源征集</view>
       <view class="col-5 {{showBlock?'':'blockActive'}}" @tap="isShow(0)">线索征集</view>
     </view>
     <NULL></NULL>

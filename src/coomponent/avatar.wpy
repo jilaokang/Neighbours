@@ -1,0 +1,56 @@
+<template>
+  <view class="col-2">
+    <view class="avatar-detail">
+      <view class="avatar-detail__avatar"></view>
+      <view class="avatar-detail__type">司法</view>
+    </view>
+    <view class="avatar-detail__name">浅薄康</view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class avatar extends wepy.component {};
+
+</script>
+
+<style lang="scss" scoped>
+  #avatar {
+    .col-2 {
+      padding: {
+        top: 10px;
+        bottom: 10px;
+      }
+      text-align: center;
+    }
+    .avatar-detail {
+      margin: auto;
+      width: 40px;
+      height: 40px;
+      border-radius: 3px;
+      border: 1px solid #eeeeee;
+      overflow: hidden;
+      .avatar-detail__type {
+        width: 42px;
+        margin: auto;
+        text-align: center;
+        color: #c00000;
+        background: #ffffff;
+        font-size: 10px;
+        margin-top: -13px;
+        opacity: 0.8;
+      }
+      .avatar-detail__avatar {
+        height: 40px;
+        width: 40px;
+        background-size: cover;
+        background-image: url('http://img2.woyaogexing.com/2017/10/01/61133b7414bdf1de!400x400_big.jpg');
+      }
+    }
+    .avatar-detail__name {
+      font-size: 13px;
+      line-height: 1.8;
+    }
+  }
+
+</style>

@@ -1,0 +1,104 @@
+<template lang="wxml" minapp="native">
+  <view>
+    <view class="container">
+      <view class="row center_middle login-input">
+        <view class="col-3">姓名</view>
+        <view class="col-7">
+          <input type="text" placeholder="请输入真实姓名">
+        </view>
+      </view>
+      <view class="row center_middle login-input">
+        <view class="col-3">手机号</view>
+        <view class="col-7">
+          <input type="text" placeholder="请输入真实手机号">
+        </view>
+      </view>
+      <view class="row center_middle login-input">
+        <view class="col-3">区</view>
+        <view class="col-7">
+          <input type="text" placeholder="请选择对应区">
+        </view>
+      </view>
+      <view class="row center_middle login-input">
+        <view class="col-3">街道</view>
+        <view class="col-7">
+          <input type="text" placeholder="请选择对应街道">
+        </view>
+      </view>
+      <view class="row center_middle login-input">
+        <view class="col-3">所属网格</view>
+        <view class="col-7">
+          <input type="text" placeholder="请选择对应网格">
+        </view>
+      </view>
+      <view class="row center_middle login-input">
+        <view class="col-3">负责区域</view>
+        <view class="col-7">
+          <input type="text" placeholder="请填写负责区域">
+        </view>
+      </view>
+    </view>
+    <NULL></NULL>
+    <view class="container submit">
+      <navigator url="/pages/chat/index" hover-class="navigator-hover">
+        <button type="primary">注册</button>
+      </navigator>
+    </view>
+    <footerNav></footerNav>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy';
+  import NULL from '../../coomponent/null';
+  import footerNav from '../../coomponent/footer';
+
+  export default class LoginAdmin extends wepy.page {
+    components = {
+      NULL: NULL,
+      footerNav: footerNav
+    };
+  }
+
+</script>
+<style lang="scss" scoped>
+  .login-input {
+    height: 50px;
+    line-height: 1.55;
+    border-bottom: 1px solid #efefef;
+  }
+
+  .gridListCard {
+    height: 88px;
+    border-bottom: 1px solid #efefef;
+    image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .content {
+      .community {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      .admin,
+      .location {
+        font-size: 14px;
+        color: #aaaaaa;
+      }
+    }
+    .iconfont {
+      font-size: 30px;
+      color: #dddddd;
+    }
+  }
+
+  .submit {
+    background: none;
+    button {
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+</style>
