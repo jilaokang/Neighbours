@@ -275,6 +275,7 @@ export default class chat extends wepy.page {
         success: res => {
           that.msgList = that.msgList.concat(...res.data.data);
           that.scrollTop = res.data.data.length * 50;
+          this.$apply();
         }
       });
 

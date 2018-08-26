@@ -14,14 +14,14 @@ export default class extends wepy.app {
 
   config = {
     pages: [
+      // 登录页面
+      'pages/login/people',
+      'pages/login/peopleInfo',
+      'pages/login/index',
+      'pages/login/admin',
       // 聊天部分
       'pages/chat/index',
       'pages/chat/roominfo/index',
-      // 登录页面
-      'pages/login/index',
-      'pages/login/people',
-      'pages/login/peopleInfo',
-      'pages/login/admin',
       // 微心愿
       'pages/wish/index',
       'pages/wish/center/index',

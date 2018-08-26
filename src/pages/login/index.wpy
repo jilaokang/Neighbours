@@ -15,7 +15,17 @@
 
 <script>
 import wepy from 'wepy';
-export default class LoginType extends wepy.page {}
+import Auth from '../../service/auth';
+import Resource from '../../service/resource';
+const auth = new Auth();
+const resource = new Resource();
+// const auth = new AUTH();
+export default class LoginType extends wepy.page {
+  onLoad() {
+    console.log(auth.checkLogin());
+    resource.getDistrictList();
+  }
+}
 </script>
 
 <style lang="scss" scoped>

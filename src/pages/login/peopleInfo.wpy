@@ -1,4 +1,4 @@
-<template lang="wxml" minapp="native">
+<template>
   <view>
     <view class="container">
       <view class="row center_middle login-input">
@@ -10,26 +10,30 @@
       <view class="row center_middle login-input">
         <view class="col-3">手机号</view>
         <view class="col-7">
-          <input type="text" placeholder="姓名">
+          <button style="line-height:2.3" open-type="getPhoneNumber" @getphonenumber="getPhone">获取手机号</button>
         </view>
       </view>
-      <view class="row center_middle login-input">
-        <view class="col-3">身份</view>
-        <view class="col-7">
-          <radio-group class="radio-group" bindchange="radioChange">
-            <label class="radio" wx:for="{{items}}">
-              <radio value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+      <view class=" row center_middle login-input ">
+        <view class="col-3 ">身份</view>
+        <view class="col-7 ">
+          <radio-group class="radio-group " bindchange="radioChange ">
+            <label class="radio " wx:for="{{items}}">
+              <radio value="{{item.name}} " checked="{{item.checked}} " />{{item.value}}
             </label>
           </radio-group>
         </view>
       </view>
       <footerNav></footerNav>
     </view>
-    <view class="container submit">
-      <view class="row center_middle">
-        <navigator url="/pages/chat/index" hover-class="navigator-hover">
-          <button class="btn" type="primary" loading="{{loading}}" disabled="{{disabled}}" bindtap="onTap">
+    <view class="container submit ">
+      <view class="row center_middle ">
+        <navigator url="/pages/chat/index" hover-class="navigator-hover ">
+          <button class="btn" type="primary " @tap="postSubmit ">
             确定
+          </button>
+          
+                    <button class="btn" open-type=getUserInfo   @getUserInfo="auth.checkLogin" type="primary" @tap="postSubmit ">
+          授权
           </button>
         </navigator>
       </view>
@@ -40,11 +44,16 @@
 <script>
 import wepy from 'wepy';
 import footerNav from '../../coomponent/footer';
+import Auth from '../../service/auth';
+const auth = new Auth();
 export default class Info extends wepy.page {
   components = {
     footerNav: footerNav
   };
   data = {
+    name: ' ',
+    phone: ' ',
+    type: ' ',
     items: [
       {
         name: 'CHN',
@@ -61,6 +70,63 @@ export default class Info extends wepy.page {
       }
     ]
   };
+  methods = {
+    a() {
+      console.log('ddd');
+    },
+    async getPhone(e) {
+      let sessionKey;
+      let that = this;
+
+      await wepy
+        .getStorage({
+          key: 'openid'
+        })
+        .then(res => (sessionKey = res.data.session_key));
+
+      await wepy
+        .request({
+          url: 'https://wechat.tenqent.com/api/wxapp/user/mobile',
+          methods: 'POST',
+          data: {
+            sessionKey: sessionKey,
+            iv: e.detail.iv,
+            encrypted_data: e.detail.encryptedData
+          }
+        })
+        .then(res => (that.phone = res.data.data.mobile.phoneNumber));
+      console.log(that.phone);
+    },
+
+    async postSubmit() {
+      let that = this;
+      let USER = {
+        id: ' ',
+        qbm: ' ',
+        jbm: ' ',
+        sqbm: ' ',
+        wgbm: ' ',
+        name: that.name,
+        mobile: that.phone,
+        user_shenfen: that.type
+      };
+      await wepy
+        .getStorage({
+          key: 'userinfo'
+        })
+        .then(res => {});
+      await wepy
+        .getStorage({
+          key: 'openid'
+        })
+        .then(res => (USER.id = res.data.openid));
+
+      console.log(USER);
+    }
+  };
+  onLoad(opts) {
+    console.log(opts);
+  }
 }
 </script>
 

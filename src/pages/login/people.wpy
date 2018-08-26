@@ -4,106 +4,171 @@
       <view class="row center_middle login-input">
         <view class="col-3">区</view>
         <view class="col-7">
-          <input type="text" placeholder="请选择对应区域">
+          <picker @change="getDistrict" range-key="ssq" range="{{districtList}}">
+            <view class="picker">
+              {{districtValue.ssq}}
+            </view>
+          </picker>
         </view>
       </view>
       <view class="row center_middle login-input">
         <view class="col-3">街道</view>
         <view class="col-7">
-          <input type="text" placeholder="请选择对应街道">
+          <picker @change="getStreet" range-key="ssj" range="{{streetList}}">
+            <view class="picker">
+              {{streetValue.ssj}}
+            </view>
+          </picker>
         </view>
       </view>
       <view class="row center_middle login-input">
         <view class="col-3">社区</view>
         <view class="col-7">
-          <input type="text" placeholder="请选择对应社区">
+          <picker @change="getCommunity" range-key="sssq" range="{{communityList}}">
+            <view class="picker">
+              {{communityValue.sssq}}
+            </view>
+          </picker>
         </view>
       </view>
     </view>
     <NULL></NULL>
     <view class="container">
-      <navigator url="/pages/login/peopleInfo" hover-class="navigator-hover">
+      <navigator wx:for="{{gridAdminList}}" url="/pages/login/peopleInfo?qbm={{districtValue.qbm}}?jbm={{streetValue.jbm}}?sqbm={{communityValue.sqbm}}?wgbm={{gridValue.wgbm}}"
+        hover-class="navigator-hover">
         <view class="row gridListCard center_middle">
           <view class="col-2">
             <view class="center_middle">
-              <image lazy-load src="https://tse4.mm.bing.net/th?id=OIP.y91Dn5xlrCnzgMGWsXCypAHaHa&pid=Api"></image>
+              <image lazy-load src="{{item.avatar}}"></image>
             </view>
           </view>
           <view class="col-7 content">
-            <view class="community">水路小区001网格</view>
-            <!-- <view class="admin">管理员：刘芳 18086407838</view> -->
-            <view class="location">地址：福新路22号水路社区6栋</view>
+            <view class="community">{{item.wgqc}}</view>
+            <view class="location">{{item.name}}：{{item.mobile}}</view>
+            <view class="admin">管辖区域：{{item.territory}}</view>
           </view>
           <view class="col-1 iconfont icon-ai226"></view>
         </view>
       </navigator>
-
-      <view class="row gridListCard center_middle">
-        <view class="col-2">
-          <view class="center_middle">
-            <image lazy-load src="https://tse2.mm.bing.net/th?id=OIP.0sZxglBCS1V0T73uXDfxJQAAAA&pid=Api"></image>
-          </view>
-        </view>
-        <view class="col-7 content">
-          <view class="community">水路小区002网格</view>
-          <view class="location">地址：福新路22号水路社区6栋</view>
-        </view>
-        <view class="col-1 iconfont icon-ai226"></view>
-      </view>
-      <view class="row gridListCard center_middle">
-        <view class="col-2">
-          <view class="center_middle">
-            <image lazy-load src="https://tse2.mm.bing.net/th?id=OIP.0sZxglBCS1V0T73uXDfxJQAAAA&pid=Api"></image>
-          </view>
-        </view>
-        <view class="col-7 content">
-          <view class="community">水路小区003网格</view>
-          <view class="location">地址：福新路22号水路社区6栋</view>
-        </view>
-        <view class="col-1 iconfont icon-ai226"></view>
-      </view>
     </view>
   </view>
 </template>
 <script>
-import wepy from 'wepy';
-import NULL from '../../coomponent/null';
-export default class Login extends wepy.page {
-  components = {
-    NULL: NULL
-  };
-}
+  import wepy from 'wepy';
+  import NULL from '../../coomponent/null';
+  import Auth from '../../service/auth';
+  import Resource from '../../service/resource';
+  const auth = new Auth();
+  const resource = new Resource();
+
+  export default class Login extends wepy.page {
+    components = {
+      NULL: NULL
+    };
+
+    data = {
+      districtList: [],
+      districtValue: {
+        ssq: '请选择区'
+      },
+      streetList: [],
+      streetValue: {
+        ssj: '请选择街道'
+      },
+      communityList: [],
+      communityValue: {
+        sssq: '请选择社区'
+      },
+      gridList: [],
+      gridValue: {},
+      gridAdminList: [],
+      gridAdminValue: {}
+    };
+
+    methods = {
+      async getDistrict(e) {
+        let that = this;
+        that.districtValue = that.districtList[e.detail.value];
+        await resource.getStreetList(that.districtValue.qbm).then(res => {
+          that.streetList = res.data.data.jie;
+          that.$apply();
+        });
+        that.$apply();
+      },
+
+      async getStreet(e) {
+        let that = this;
+        that.streetValue = that.streetList[e.detail.value];
+        await resource.getCommunityList(that.streetValue.jbm).then(res => {
+          that.communityList = res.data.data.shequ;
+          that.$apply();
+        });
+
+        that.$apply();
+      },
+
+      async getCommunity(e) {
+        let that = this;
+        that.communityValue = that.communityList[e.detail.value];
+        console.log(that.communityValue.sqbm);
+        await resource.getGridList(that.communityValue.sqbm).then(res => {
+          that.gridList = res.data.data.wangge;
+          that.$apply();
+        });
+        await resource.getGridAdminList(420106008006).then(res => {
+          that.gridAdminList = res.data.data.wanggeyuan;
+          console.log(res);
+          that.$apply();
+        });
+
+        console.log(that.gridList);
+        console.log(that.gridAdminList);
+        that.$apply();
+      }
+    };
+
+    async onLoad() {
+      let that = this;
+      await resource
+        .getDistrictList()
+        .then(res => (that.districtList = res.data.data.qu));
+      auth.checkLogin();
+      this.$apply();
+    }
+  }
+
 </script>
 <style lang="scss" scoped>
-.login-input {
-  height: 50px;
-  line-height: 1.55;
-  border-bottom: 1px solid #efefef;
-}
-
-.gridListCard {
-  height: 88px;
-  border-bottom: 1px solid #efefef;
-  image {
-    width: 50px;
+  .login-input {
     height: 50px;
-    border-radius: 50%;
+    line-height: 1.55;
+    border-bottom: 1px solid #efefef;
   }
-  .content {
-    .community {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 1px;
+
+  .gridListCard {
+    padding: 10px 0;
+    border-bottom: 1px solid #efefef;
+    image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
     }
-    .admin,
-    .location {
-      font-size: 14px;
-      color: #aaaaaa;
+    .content {
+      .community {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      .admin,
+      .location {
+        font-size: 14px;
+        color: #aaaaaa;
+      }
+    }
+    .iconfont {
+      font-size: 30px;
+      color: #dddddd;
     }
   }
-  .iconfont {
-    font-size: 30px;
-    color: #dddddd;
-  }
-}
+
 </style>
