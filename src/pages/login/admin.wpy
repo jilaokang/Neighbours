@@ -58,6 +58,9 @@
     <NULL></NULL>
     <view class="container submit">
         <button class="navigator"  open-type="getPhoneNumber" @getphonenumber="getPhone" type="primary">注册</button>
+    </view>  
+      <view wx:if="{{loginButton}}" class="model row">
+      <button open-type=getUserInfo   @tap="getUserInfo">点我授权</button
     </view>
     <footerNav></footerNav>
   </view>
@@ -227,12 +230,35 @@ export default class LoginAdmin extends wepy.page {
     await resource
       .getDistrictList()
       .then(res => (that.districtList = res.data.data.qu));
-    auth.checkLogin();
+    await wepy
+      .getStorage({
+        key: 'openid'
+      })
+      .then(res => {
+        console.log(res);
+        that.loginButton = Boolean(res.data.openid) ? false : true;
+      });
     this.$apply();
   }
 }
 </script>
 <style lang="scss" scoped>
+.model {
+  position: absolute;
+  top: 0;
+  padding-top: 20vh;
+  height: 100vh;
+  width: 100vw;
+  background: #ffffff;
+  button {
+    border-radius: 50%;
+    text-align: center;
+    line-height: 100px;
+    background: #1aad19;
+    color: #ffffff;
+    height: 100px;
+  }
+}
 .login-input {
   height: 50px;
   line-height: 1.55;

@@ -16,9 +16,9 @@ export default class extends wepy.app {
   config = {
     pages: [
       // 登录页面
+      'pages/login/people',
       'pages/login/index',
       'pages/login/peopleInfo',
-      'pages/login/people',
       'pages/login/admin',
       // 反馈页面
       'pages/unmain/log',

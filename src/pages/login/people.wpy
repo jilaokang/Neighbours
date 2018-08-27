@@ -34,7 +34,7 @@
     </view>
     <NULL></NULL>
     <view class="container">
-      <repeat for="{{gridAdminList}}">
+      <repeat for="{{gridAdminList}}" key="index">
       <navigator url="/pages/login/peopleInfo?qbm={{districtValue.qbm}}&jbm={{streetValue.jbm}}&sqbm={{communityValue.sqbm}}&wgbm={{item.wgbm}}"
         hover-class="navigator-hover">
         <view class="row gridListCard center_middle">
@@ -52,6 +52,9 @@
         </view>
       </navigator>
       </repeat>
+    </view>
+    <view wx:if="{{loginButton}}" class="model row">
+      <button open-type=getUserInfo   @tap="getUserInfo">点我授权</button
     </view>
     <footerNav bottom="false"></footerNav>
   </view>
@@ -72,6 +75,7 @@ export default class Login extends wepy.page {
   };
 
   data = {
+    loginButton: true,
     buffer: null,
     buffer2: null,
     districtList: [],
@@ -132,6 +136,11 @@ export default class Login extends wepy.page {
       console.log(that.gridList);
       console.log(that.gridAdminList);
       that.$apply();
+    },
+    getUserInfo() {
+      auth.checkLogin();
+      this.loginButton = false;
+      this.$apply();
     }
   };
 
@@ -140,12 +149,39 @@ export default class Login extends wepy.page {
     await resource
       .getDistrictList()
       .then(res => (that.districtList = res.data.data.qu));
-    auth.checkLogin();
     this.$apply();
+  }
+
+  async onShow() {
+    let that = this;
+    await wepy
+      .getStorage({
+        key: 'openid'
+      })
+      .then(res => {
+        console.log(res);
+        that.loginButton = Boolean(res.data.openid) ? false : true;
+      });
   }
 }
 </script>
 <style lang="scss" scoped>
+.model {
+  position: absolute;
+  top: 0;
+  padding-top: 20vh;
+  height: 100vh;
+  width: 100vw;
+  background: #ffffff;
+  button {
+    border-radius: 50%;
+    text-align: center;
+    line-height: 100px;
+    background: #1aad19;
+    color: #ffffff;
+    height: 100px;
+  }
+}
 .login-input {
   height: 50px;
   line-height: 1.55;
