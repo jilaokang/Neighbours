@@ -1,0 +1,102 @@
+<template>
+  <view class="main">
+    <view class="row  center_middle title">
+      <view>建议反馈</view>
+    </view>
+    <view class="row content">
+      <textarea @input="getContent" value="{{content}}" axlength="-1" placeholder="我们期待您的反馈。" />
+    </view>
+    <view class="row button">
+      <button type="primary" @tap="submit">提交</button>
+    </view>
+    <footerNav></footerNav>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import FooterNav from '../../coomponent/footer';
+  export default class UnmainFedback extends wepy.page {
+    data = {
+      content: ''
+    }
+    components = {
+      footerNav: FooterNav
+    };
+    methods = {
+      getContent(e) {
+        this.content = e.detail.value;
+      },
+      async submit() {
+        let USERID
+        let that = this;
+
+        await wepy.getStorage({
+            key: 'openid'
+          })
+          .then(res => USERID = res.data.openid)
+
+        await wepy.request({
+            url: "https://wechat.tenqent.com/api/wxapp/Message/message_add",
+            data: {
+              user_id: USERID,
+              content: that.content
+            },
+            methods: "POST"
+          })
+          .then(res => {
+            if (res.data.code) {
+              wx.showToast({
+                title: '反馈成功',
+                icon: 'success',
+                duration: 2000
+              });
+            } else {
+              wx.showToast({
+                title: '您的留言未填写',
+                icon: 'none',
+                duration: 2000
+              });
+            }
+          })
+        this.content = null
+        this.$apply();
+      }
+    }
+  }
+
+</script>
+<style lang="scss" scoped>
+  .main {
+    padding: 30px 32px;
+    background: #ffffff
+  }
+
+  .title {
+    padding-bottom: 20px;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 5px;
+    text-align: center;
+    view {
+      color: #1aad19;
+    }
+  }
+
+  .content {
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 10px 12px;
+      border-radius: 6px;
+    }
+  }
+
+  .button {
+    button {
+      width: 100%;
+      margin: 30px auto;
+    }
+  }
+
+</style>

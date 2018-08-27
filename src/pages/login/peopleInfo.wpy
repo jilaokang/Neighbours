@@ -4,40 +4,28 @@
       <view class="row center_middle login-input">
         <view class="col-3">姓名</view>
         <view class="col-7">
-          <input type="text" placeholder="姓名">
-        </view>
-      </view>
-      <view class="row center_middle login-input">
-        <view class="col-3">手机号</view>
-        <view class="col-7">
-          <button style="line-height:2.3" open-type="getPhoneNumber" @getphonenumber="getPhone">获取手机号</button>
+          <input type="text" @change="getInput" placeholder="姓名">
         </view>
       </view>
       <view class=" row center_middle login-input ">
         <view class="col-3 ">身份</view>
         <view class="col-7 ">
-          <radio-group class="radio-group " bindchange="radioChange ">
+          <radio-group class="radio-group " @change="radioChange">
             <label class="radio " wx:for="{{items}}">
-              <radio value="{{item.name}} " checked="{{item.checked}} " />{{item.value}}
+              <radio value="{{item.name}}"  />{{item.value}}
             </label>
           </radio-group>
         </view>
       </view>
-      <footerNav></footerNav>
     </view>
     <view class="container submit ">
       <view class="row center_middle ">
-        <navigator url="/pages/chat/index" hover-class="navigator-hover ">
-          <button class="btn" type="primary " @tap="postSubmit ">
+          <button class="btn navigator" open-type="getPhoneNumber" @getphonenumber="getPhone" type="primary">
             确定
           </button>
-          
-                    <button class="btn" open-type=getUserInfo   @getUserInfo="auth.checkLogin" type="primary" @tap="postSubmit ">
-          授权
-          </button>
-        </navigator>
       </view>
     </view>
+    <footerNav></footerNav>
   </view>
 </template>
 
@@ -51,28 +39,35 @@ export default class Info extends wepy.page {
     footerNav: footerNav
   };
   data = {
-    name: ' ',
-    phone: ' ',
-    type: ' ',
+    name: '',
+    phone: '',
+    type: '',
+    qbm: ' ',
+    jbm: ' ',
+    sqbm: ' ',
+    wgbm: '',
+    user_shenfen: '',
     items: [
       {
-        name: 'CHN',
-        value: '业主',
-        checked: 'true'
+        name: 1,
+        value: '业主'
       },
       {
-        name: 'BRA',
+        name: 2,
         value: '租户'
       },
       {
-        name: 'JPN',
+        name: 3,
         value: '其他'
       }
     ]
   };
   methods = {
-    a() {
-      console.log('ddd');
+    getInput(e) {
+      this.name = e.detail.value;
+    },
+    radioChange(e) {
+      this.type = e.detail.value;
     },
     async getPhone(e) {
       let sessionKey;
@@ -95,37 +90,63 @@ export default class Info extends wepy.page {
           }
         })
         .then(res => (that.phone = res.data.data.mobile.phoneNumber));
-      console.log(that.phone);
-    },
 
-    async postSubmit() {
-      let that = this;
       let USER = {
         id: ' ',
-        qbm: ' ',
-        jbm: ' ',
-        sqbm: ' ',
-        wgbm: ' ',
+        qbm: that.qbm,
+        jbm: that.jbm,
+        sqbm: that.sqbm,
+        wgbm: that.wgbm,
         name: that.name,
         mobile: that.phone,
         user_shenfen: that.type
       };
       await wepy
         .getStorage({
-          key: 'userinfo'
-        })
-        .then(res => {});
-      await wepy
-        .getStorage({
           key: 'openid'
         })
         .then(res => (USER.id = res.data.openid));
 
-      console.log(USER);
+      await wepy
+        .request({
+          url: 'https://wechat.tenqent.com/api/wxapp/user/jumin_login',
+          method: 'POST',
+          data: USER
+        })
+        .then(res => {
+          if (res.data.code === 1) {
+            wx.showToast({
+              title: '注册成功',
+              icon: 'success',
+              duration: 2000
+            });
+            setTimeout(() => {
+              wx.navigateTo({
+                url: '/pages/chat/index'
+              });
+            }, 2000);
+          } else {
+            let title;
+            for (let key in USER) {
+              if (USER[key]) title = '您有信息未填写';
+            }
+            wx.showToast({
+              title: title,
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        });
+
+      that.$apply();
     }
   };
   onLoad(opts) {
     console.log(opts);
+    this.qbm = opts.qbm;
+    this.jbm = opts.jbm;
+    this.sqbm = opts.sqbm;
+    this.wgbm = opts.wgbm;
   }
 }
 </script>
@@ -146,7 +167,7 @@ navigator {
   width: 100%;
 }
 
-navigator {
+.navigator {
   margin: 30px auto 30px auto;
 }
 

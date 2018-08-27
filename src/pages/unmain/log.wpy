@@ -1,0 +1,55 @@
+<template>
+  <view class="main">
+    <view class="section">
+      <view class="title">版本 V1.0.0</view>
+      <view class="title-content content">9月1日</view>
+      <view class="content">1.1 完成居民登录功能</view>
+      <view class="content">1.2 完成网格员登录功能</view>
+      <view class="content">1.3 完成网格群聊功能</view>
+      <view class="content">1.4 完成网格中心功能</view>
+      <view class="content">2.1 完成扫黑除恶相关页面</view>
+      <view class="content">2.2 完成微心愿相关页面</view>
+      <view class="content">2.3 完成在线报事相关页面</view>
+    </view>
+    <footernav></footernav>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy';
+  import FooterNav from '../../coomponent/footer'
+  export default class UnmainLog extends wepy.page {
+    components = {
+      footernav: FooterNav
+    }
+  }
+
+</script>
+
+<style scoped>
+  .main {
+    padding: 30px 50px;
+    background: #ffffff;
+  }
+
+  .section {
+    padding: 10px 0;
+  }
+
+  .title {
+    font-weight: 800;
+    color: #1aad19;
+    line-height: 1.7
+  }
+
+  .content {
+    color: #999999;
+    font-size: 28rpx;
+    line-height: 1.7;
+  }
+
+  .title-content {
+    line-height: 2
+  }
+
+</style>

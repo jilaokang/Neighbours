@@ -4,101 +4,274 @@
       <view class="row center_middle login-input">
         <view class="col-3">姓名</view>
         <view class="col-7">
-          <input type="text" placeholder="请输入真实姓名">
+          <input type="text" placeholder="请输入真实姓名" @change="getName">
         </view>
       </view>
-      <view class="row center_middle login-input">
-        <view class="col-3">手机号</view>
-        <view class="col-7">
-          <input type="text" placeholder="请输入真实手机号">
-        </view>
-      </view>
+
       <view class="row center_middle login-input">
         <view class="col-3">区</view>
         <view class="col-7">
-          <input type="text" placeholder="请选择对应区">
+          <picker @change="getDistrict" range-key="ssq" range="{{districtList}}">
+            <view class="picker">
+              {{districtValue.ssq}}
+            </view>
+          </picker>
         </view>
       </view>
       <view class="row center_middle login-input">
         <view class="col-3">街道</view>
         <view class="col-7">
-          <input type="text" placeholder="请选择对应街道">
+          <picker @change="getStreet" range-key="ssj" range="{{streetList}}">
+            <view class="picker">
+              {{buffer?buffer:streetValue.ssj}}
+            </view>
+          </picker>
         </view>
       </view>
       <view class="row center_middle login-input">
-        <view class="col-3">所属网格</view>
+        <view class="col-3">社区</view>
         <view class="col-7">
-          <input type="text" placeholder="请选择对应网格">
+          <picker @change="getCommunity" range-key="sssq" range="{{communityList}}">
+            <view class="picker">
+              {{buffer2?buffer2:communityValue.sssq}}
+            </view>
+          </picker>
         </view>
-      </view>
+    </view>
+          <view class="row center_middle login-input">
+        <view class="col-3">网格</view>
+        <view class="col-7">
+          <picker @change="getGrid" range-key="wgqc" range="{{gridList}}">
+            <view class="picker">
+              {{buffer3?buffer3:gridValue.wgqc}}
+            </view>
+          </picker>
+        </view>
+    </view>
       <view class="row center_middle login-input">
         <view class="col-3">负责区域</view>
         <view class="col-7">
-          <input type="text" placeholder="请填写负责区域">
+          <input type="text" placeholder="请填写负责区域" @change="getArea">
         </view>
       </view>
     </view>
     <NULL></NULL>
     <view class="container submit">
-      <navigator url="/pages/chat/index" hover-class="navigator-hover">
-        <button type="primary">注册</button>
-      </navigator>
+        <button class="navigator"  open-type="getPhoneNumber" @getphonenumber="getPhone" type="primary">注册</button>
     </view>
     <footerNav></footerNav>
   </view>
 </template>
 <script>
-  import wepy from 'wepy';
-  import NULL from '../../coomponent/null';
-  import footerNav from '../../coomponent/footer';
+import wepy from 'wepy';
+import NULL from '../../coomponent/null';
+import footerNav from '../../coomponent/footer';
+import Auth from '../../service/auth';
+import Resource from '../../service/resource';
+const auth = new Auth();
+const resource = new Resource();
 
-  export default class LoginAdmin extends wepy.page {
-    components = {
-      NULL: NULL,
-      footerNav: footerNav
-    };
+export default class LoginAdmin extends wepy.page {
+  components = {
+    NULL: NULL,
+    footerNav: footerNav
+  };
+  data = {
+    user: {
+      name: '',
+      phone: '',
+      area: ''
+    },
+    buffer: null,
+    buffer2: null,
+    buffer3: null,
+    districtList: [],
+    districtValue: {
+      ssq: '请选择区'
+    },
+    streetList: [],
+    streetValue: {
+      ssj: '请选择街道'
+    },
+    communityList: [],
+    communityValue: {
+      sssq: '请选择社区'
+    },
+    gridList: [],
+    gridValue: {
+      wgqc: '请选择网格'
+    },
+    gridAdminList: [],
+    gridAdminValue: {}
+  };
+
+  methods = {
+    getName(e) {
+      this.user.name = e.detail.value;
+    },
+    getArea(e) {
+      this.user.area = e.detail.value;
+    },
+    async getDistrict(e) {
+      let that = this;
+      that.districtValue = that.districtList[e.detail.value];
+      that.buffer = '读取中';
+      await resource.getStreetList(that.districtValue.qbm).then(res => {
+        that.streetList = res.data.data.jie;
+      });
+      that.buffer = null;
+      that.$apply();
+    },
+
+    async getStreet(e) {
+      let that = this;
+      that.streetValue = that.streetList[e.detail.value];
+      that.buffer2 = '读取中';
+      await resource.getCommunityList(that.streetValue.jbm).then(res => {
+        that.communityList = res.data.data.shequ;
+      });
+      that.buffer2 = null;
+      that.$apply();
+    },
+
+    async getCommunity(e) {
+      let that = this;
+      that.$apply();
+      that.communityValue = that.communityList[e.detail.value];
+      console.log(that.communityValue.sqbm);
+      that.buffer3 = '读取中';
+      await resource.getGridList(that.communityValue.sqbm).then(res => {
+        that.gridList = res.data.data.wangge;
+        console.log(res);
+      });
+      that.buffer3 = null;
+
+      that.$apply();
+    },
+    async getGrid(e) {
+      this.gridValue = this.gridList[e.detail.value];
+    },
+    async getPhone(e) {
+      let sessionKey;
+      let that = this;
+
+      await wepy
+        .getStorage({
+          key: 'openid'
+        })
+        .then(res => (sessionKey = res.data.session_key));
+      await wepy
+        .request({
+          url: 'https://wechat.tenqent.com/api/wxapp/user/mobile',
+          methods: 'POST',
+          data: {
+            sessionKey: sessionKey,
+            iv: e.detail.iv,
+            encrypted_data: e.detail.encryptedData
+          }
+        })
+        .then(res => (that.user.phone = res.data.data.mobile.phoneNumber));
+
+      let USER = {
+        id: '',
+        qbm: that.districtValue.qbm,
+        jbm: that.streetValue.jbm,
+        sqbm: that.communityValue.sqbm,
+        wgbm: that.gridValue.wgbm,
+        name: that.user.name,
+        mobile: that.user.phone,
+        territory: that.user.area
+      };
+      await wepy
+        .getStorage({
+          key: 'openid'
+        })
+        .then(res => (USER.id = res.data.openid));
+
+      await wepy
+        .request({
+          url: 'https://wechat.tenqent.com/api/wxapp/user/wanggeyuan_login',
+          method: 'POST',
+          data: USER
+        })
+        .then(res => {
+          if (res.data.code === 1) {
+            wx.showToast({
+              title: '注册成功',
+              icon: 'success',
+              duration: 2000
+            });
+            setTimeout(() => {
+              wx.navigateTo({
+                url: '/pages/chat/index'
+              });
+            }, 2000);
+          } else {
+            let title;
+            for (let key in USER) {
+              if (USER[key]) title = '您有信息未填写';
+            }
+            wx.showToast({
+              title: title,
+              icon: 'none',
+              duration: 2000
+            });
+          }
+        });
+      that.$apply();
+    }
+  };
+
+  async onLoad() {
+    let that = this;
+    await resource
+      .getDistrictList()
+      .then(res => (that.districtList = res.data.data.qu));
+    auth.checkLogin();
+    this.$apply();
   }
-
+}
 </script>
 <style lang="scss" scoped>
-  .login-input {
+.login-input {
+  height: 50px;
+  line-height: 1.55;
+  border-bottom: 1px solid #efefef;
+}
+
+.gridListCard {
+  height: 88px;
+  border-bottom: 1px solid #efefef;
+  image {
+    width: 50px;
     height: 50px;
-    line-height: 1.55;
-    border-bottom: 1px solid #efefef;
+    border-radius: 50%;
   }
-
-  .gridListCard {
-    height: 88px;
-    border-bottom: 1px solid #efefef;
-    image {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+  .content {
+    .community {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
     }
-    .content {
-      .community {
-        font-size: 22px;
-        font-weight: 800;
-        letter-spacing: 1px;
-      }
-      .admin,
-      .location {
-        font-size: 14px;
-        color: #aaaaaa;
-      }
-    }
-    .iconfont {
-      font-size: 30px;
-      color: #dddddd;
+    .admin,
+    .location {
+      font-size: 14px;
+      color: #aaaaaa;
     }
   }
-
-  .submit {
-    background: none;
-    button {
-      width: 100%;
-      margin: 0 auto;
-    }
+  .iconfont {
+    font-size: 30px;
+    color: #dddddd;
   }
-
+}
+.navigator {
+  margin: 30px auto 30px auto;
+}
+.submit {
+  background: none;
+  button {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
 </style>

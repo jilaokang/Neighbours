@@ -2,12 +2,12 @@
   <view class="container">
     <view class="row center_middle">
       <navigator url="/pages/login/admin" hover-class="navigator-hover">
-        <button>网格员注册</button>
+        <button open-type=getUserInfo   @getUserInfo="getUserInfo">网格员注册</button>
       </navigator>
     </view>
     <view class="row center_middle">
       <navigator url="/pages/login/people" hover-class="navigator-hover">
-        <button>居民注册</button>
+        <button open-type=getUserInfo   @getUserInfo="getUserInfo">居民注册</button>
       </navigator>
     </view>
   </view>
@@ -21,6 +21,11 @@ const auth = new Auth();
 const resource = new Resource();
 // const auth = new AUTH();
 export default class LoginType extends wepy.page {
+  methods = {
+    getUserInfo() {
+      auth.checkLogin();
+    }
+  };
   onLoad() {
     console.log(auth.checkLogin());
     resource.getDistrictList();

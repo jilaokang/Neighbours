@@ -10,15 +10,19 @@ export default class extends wepy.app {
   constructor() {
     super();
     this.use('promisify');
+    this.use('requestfix');
   }
 
   config = {
     pages: [
       // 登录页面
-      'pages/login/people',
-      'pages/login/peopleInfo',
       'pages/login/index',
+      'pages/login/peopleInfo',
+      'pages/login/people',
       'pages/login/admin',
+      // 反馈页面
+      'pages/unmain/log',
+      'pages/unmain/fedback',
       // 聊天部分
       'pages/chat/index',
       'pages/chat/roominfo/index',
