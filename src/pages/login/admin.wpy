@@ -59,9 +59,9 @@
     <view class="container submit">
         <button class="navigator"  open-type="getPhoneNumber" @getphonenumber="getPhone" type="primary">注册</button>
     </view>  
-      <view wx:if="{{loginButton}}" class="model row">
+      <!-- <view wx:if="{{loginButton}}" class="model row">
       <button open-type=getUserInfo   @tap="getUserInfo">点我授权</button>
-    </view>
+    </view> -->
     <footerNav></footerNav>
   </view>
 </template>
@@ -79,6 +79,7 @@ export default class LoginAdmin extends wepy.page {
     NULL: NULL,
     footerNav: footerNav
   };
+
   data = {
     user: {
       name: '',
@@ -185,15 +186,16 @@ export default class LoginAdmin extends wepy.page {
         mobile: that.user.phone,
         territory: that.user.area
       };
+      wx.setStorage({
+        key: 'userLogin',
+        data: USER
+      });
       await wepy
         .getStorage({
           key: 'userinfo'
         })
         .then(res => (USER.id = res.data.id));
-      await wepy.setStorage({
-        key: 'userLogin',
-        data: USER
-      });
+
       await wepy
         .request({
           url: 'https://wechat.tenqent.com/api/wxapp/user/wanggeyuan_login',
@@ -201,19 +203,17 @@ export default class LoginAdmin extends wepy.page {
           data: USER
         })
         .then(res => {
-          if (res.data.code === 1) {
+          console.log(res.data.code);
+          if (res.data.code) {
             wx.showToast({
               title: '注册成功',
               icon: 'success',
               duration: 2000
             });
+
             setTimeout(() => {
               wx.navigateTo({
-                url:
-                  '/pages/chat/index?name=' +
-                  that.user.name +
-                  '&wgbm=' +
-                  that.gridValue.wgbm
+                url: '/pages/chat/index'
               });
             }, 2000);
           } else {
@@ -229,14 +229,12 @@ export default class LoginAdmin extends wepy.page {
           }
         });
       that.$apply();
-    },
-    getUserInfo() {
-      auth.checkLogin();
     }
   };
 
   async onLoad() {
     let that = this;
+    auth.checkLogin();
     await resource
       .getDistrictList()
       .then(res => (that.districtList = res.data.data.qu));

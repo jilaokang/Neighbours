@@ -19,8 +19,9 @@ export default class extends wepy.app {
       'pages/chat/index',
       'pages/chat/roominfo/index',
       // 登录页面
-      'pages/login/people',
       'pages/login/index',
+      'pages/login/people',
+      'pages/login/access',
       'pages/login/peopleInfo',
       'pages/login/admin',
       // 反馈页面

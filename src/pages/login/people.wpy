@@ -53,9 +53,9 @@
       </navigator>
       </repeat>
     </view>
-    <view wx:if="{{loginButton}}" class="model row">
+    <!-- <view wx:if="{{loginButton}}" class="model row">
       <button open-type=getUserInfo   @tap="getUserInfo">点我授权</button>
-    </view>
+    </view> -->
     <footerNav bottom="false"></footerNav>
   </view>
 </template>
@@ -154,6 +154,7 @@ export default class Login extends wepy.page {
 
   async onShow() {
     let that = this;
+    auth.checkLogin();
     await wepy
       .getStorage({
         key: 'openid'

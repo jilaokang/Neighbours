@@ -17,7 +17,7 @@
       <repeat wx:for="{{msgList}}" wx:key="index">
         <myMsg wx:if="{{item.content.openid==message.data.openid}}" :value.sync="item.content"></myMsg>
         <otherMsg wx:else :value.sync="item.content"></otherMsg>
-        {{item.content.openid}} {{message.data.openid}}
+        <!-- {{item.content.openid}}{{message.data.openid}} -->
       </repeat>
       <view style="height: 8vh"></view>
     </scroll-view>
@@ -26,11 +26,11 @@
       <view class="tabber-inputs-box lv_border_top">
         <view class="lv_tabber-inputs">
           <view class="iconfont icon-yuyin"></view>
-          <textarea auto-height class="lv_textareas lv_border_bottom" value="{{postmssage.data.mine.content}}" @input="getMsg" show-confirm-bar="" maxlength='-1'
-          />
-        <view class="icon-biaoqing iconfont" style="margin-right:13px"></view>
-        <view wx:if="{{!showFooterSendButton}}" @tap="isBack(showFooterNav)"  class="iconfont icon-jia1"></view>
-          <view  class="btn-red btn" @tap="postMessage">发送</view>
+          <textarea auto-height class="lv_textareas lv_border_bottom" value="{{postmssage.data.mine.content}}" @input="getMsg" show-confirm-bar=""
+            maxlength='-1' />
+          <!-- <view class="icon-biaoqing iconfont" style="margin-right:13px"></view> -->
+          <view wx:if="{{!showFooterSendButton}}" style="margin-right:20px" @tap="isBack(showFooterNav)" class="iconfont icon-jia1"></view>
+          <view class="btn-red btn" @tap="postMessage">发送</view>
         </view>
       </view>
       <view wx:if="{{showFooterNav}}" id="swiper">
@@ -42,7 +42,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-zhaopian"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>照片</text>
@@ -52,7 +52,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-zhaopian1"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>拍摄</text>
@@ -62,7 +62,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-yuyin1"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>语音输入</text>
@@ -72,7 +72,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-wenjian"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>文件</text>
@@ -84,7 +84,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-yuyin1"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>我要说事</text>
@@ -94,7 +94,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-huodong5050"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>我要参与</text>
@@ -104,7 +104,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-qiandao-kaoqindaqia"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>党员打卡</text>
@@ -114,7 +114,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-dajimubiao  "></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>扫黑除恶</text>
@@ -138,7 +138,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-wenda2"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>有奖问答</text>
@@ -148,7 +148,7 @@
                   <view class="wgql-img">
                     <view class="wgql-img-mag">
                       <view class="iconfont icon-mingpian"></view>
-                      </view>
+                    </view>
                   </view>
                 </navigator>
                 <text>名片</text>
@@ -161,277 +161,366 @@
   </view>
 </template>
 
+
+
 <script>
-import wepy from 'wepy';
-import otherMsg from '../../coomponent/otherMsg';
-import myMsg from '../../coomponent/myMsg';
+  import wepy from 'wepy';
+  import otherMsg from '../../coomponent/otherMsg';
+  import myMsg from '../../coomponent/myMsg';
+  import AUTH from '../../service/auth'
+  const auth = new AUTH()
 
-export default class chat extends wepy.page {
-  components = {
-    otherMsg: otherMsg,
-    myMsg: myMsg
-  };
+  export default class chat extends wepy.page {
+    components = {
+      otherMsg: otherMsg,
+      myMsg: myMsg
+    };
 
-  data = {
-    scrollTop: 0,
-    focus: false,
-    openId: '',
-    showFooterNav: false,
-    showFooterSendButton: false,
-
-    userInfo: {},
-    msgList: [],
-    postmssage: {
-      type: 'chatMessage',
-      data: {
-        mine: { content: 'dsadsadsa' },
-        to: { type: 'other', id: '420102001001001' }
-      }
-    },
-    message: {
-      type: 'init',
-      data: {
-        user_id: null,
+    data = {
+      DATA: {
+        wgbm: null,
         openid: null,
-        wangge_id: null,
+        avatar: null,
+        userid: null,
+        phone: null,
         name: null,
-        headimgurl: null
+        // 管辖区域
+        territory: null
+      },
+      scrollTop: 0,
+      focus: false,
+      openId: '',
+      showFooterNav: false,
+      showFooterSendButton: false,
+
+      userInfo: {},
+      msgList: [],
+      postmssage: {
+        type: 'chatMessage',
+        data: {
+          mine: {
+            content: ''
+          },
+          to: {
+            type: 'other',
+            id: null
+          }
+        }
+      },
+      message: {
+        type: 'init',
+        data: {
+          user_id: null,
+          openid: null,
+          wangge_id: null,
+          name: null,
+          headimgurl: null
+        }
       }
-    }
-  };
+    };
 
-  methods = {
-    isBack: value => (this[value] = !this[value]),
-    isShow: value => (this[value] = true),
-    isHidden: value => (this[value] = false),
-    getMsg: e => {
-      console.log(e.detail.value);
-      this.postmssage.data.mine.content = e.detail.value;
-      // this.showFooterSendButton = e.detail.value ? true : false;
-      this.$apply();
-    },
-    async postMessage() {
+    methods = {
+      isBack: value => (this[value] = !this[value]),
+      isShow: value => (this[value] = true),
+      isHidden: value => (this[value] = false),
+      getMsg: e => {
+        console.log(e.detail.value);
+        this.postmssage.data.mine.content = e.detail.value;
+        // this.showFooterSendButton = e.detail.value ? true : false;
+        this.$apply();
+      },
+      async postMessage() {
+        let that = this;
+        console.log('ddd');
+        let POSTDATA = JSON.stringify(that.postmssage);
+        console.log(that.postmssage)
+        await wepy
+          .sendSocketMessage({
+            data: POSTDATA
+          })
+          .then(console.log)
+          .catch(console.log);
+        that.postmssage.data.mine.content = null
+        that.$apply()
+      },
+      init(res) {
+        let that = this
+      }
+    };
+    async onShow() {
       let that = this;
-      console.log('ddd');
-      let POSTDATA = JSON.stringify(that.postmssage);
 
-      await wepy.sendSocketMessage({ data: POSTDATA }).then(console.log);
+      await wepy.login().then((data) => {
+          wepy.getUserInfo().then((res) => {
+              wx.request({
+                url: "https://wechat.tenqent.com/api/wxapp/user/login",
+                data: {
+                  code: data.code,
+                  encrypted_data: res.encryptedData,
+                  iv: res.iv,
+                  raw_data: res.rawData,
+                  signature: res.signature
+                },
+                method: "POST",
+                success: res => {
+                  console.log(res)
+                  wepy.request({
+                    url: "https://wechat.tenqent.com/api/wxapp/user/user_check",
+                    method: "POST",
+                    data: {
+                      openid: res.data.data.user.openid
+                    }
+                  }).then(data => {
+                    if (!res.data.code) {
+                      wx.onSocketClose(function (res) {
+                        console.log('WebSocket 已关闭！')
+                      })
+                      wx.navigateTo({
+                        url: '/pages/login/access?url=people'
+                      });
+                    }
+                  })
+                  // 数据存储
+                  console.log(that.DATA);
+                  that.DATA.wgbm = res.data.data.user.wgbm;
+                  that.DATA.openid = res.data.data.user.openid;
+                  that.DATA.avatar = res.data.data.user.avatar;
+                  that.DATA.userid = res.data.data.user.id;
+                  that.DATA.phone = res.data.data.user.mobile;
+                  that.DATA.name = res.data.data.user.name;
+                  that.DATA.territory = res.data.data.user.territory;
+                  // 鉴权赋值 
+                  that.message.data.name = that.DATA.name;
+                  that.message.data.wangge_id = that.DATA.wgbm;
+                  console.log(that.DATA.openid);
+                  console.log(that.message.data.openid);
+                  that.message.data.openid = that.DATA.openid;
+                  console.log(that.DATA.openid);
+                  console.log(that.message.data.openid);
+                  // 信息发送 
+                  that.message.data.wangge_id = that.DATA.wgbm;
+                  that.message.data.name = that.DATA.name;
+                  that.postmssage.data.to.id = that.DATA.wgbm;
+                  that.message.data.user_id = that.DATA.userid;
+                  that.message.data.headimgurl = that.DATA.avatar;
+                  // 写入缓存
+                  wx.setStorageSync("token", res.data.data.token);
+                  wx.setStorageSync("userinfo", res.data.data.user);
+                  wx.setStorageSync("openid", res.data.data.response);
+                  console.log(that.DATA);
+                  console.log(that.message);
+                  console.log(that.postmssage);
+                  setTimeout(async () => {
+                    await wepy.connectSocket({
+                      url: 'wss://wll.tenqent.com:4431'
+                    }).catch(console.log);
+                    await wepy.onSocketOpen(function (res) {
+                      console.log('WebSocket连接已打开！');
+                      let postMsgData = JSON.stringify(that.message);
+                      console.log(that.message);
+                      wepy.sendSocketMessage({
+                        data: postMsgData
+                      }).catch(console.log);
+                    });
+                    await wepy.onSocketMessage(function (res) {
+                      console.log('收到服务器内容：' + res.data);
+                      let data = JSON.parse(res.data);
+                      if (data.type != 'ping') {
+                        that.msgList.push(data);
+                        that.scrollTop = that.scrollTop + 30;
+                      };
+                      that.$apply();
+                    });
+                  }, 0);
+
+                }
+              })
+            })
+            .catch(() => {
+              wx.onSocketClose(function (res) {
+                console.log('WebSocket 已关闭！')
+              })
+              wx.navigateTo({
+                url: '/pages/login/access?url=people'
+              });
+            })
+        })
+        .catch(() => {
+          wx.onSocketClose(function (res) {
+            console.log('WebSocket 已关闭！')
+          })
+          wx.navigateTo({
+            url: '/pages/login/access?url=people'
+          });
+        })
     }
-  };
-  async onShow() {
-    let that = this;
 
-    await wepy
-      .getStorage({
-        key: 'userLogin'
-      })
-      .then(res => {
-        that.message.data.wangge_id = res.data.wgbm;
-        that.message.data.name = res.data.name;
-        that.postmssage.data.to.id = res.data.wgbm;
-      })
-      .catch(res => {
-        console.log(res);
-        wx.navigateTo({
-          url: '/pages/login/index'
-        });
-      });
-
-    await wepy
-      .getStorage({
-        key: 'openid'
-      })
-      .then(res => (that.message.data.openid = res.data.openid));
-
-    await wepy
-      .getStorage({
-        key: 'userinfo'
-      })
-      .then(res => {
-        that.message.data.user_id = res.data.id;
-        that.message.data.headimgurl = res.data.avatar;
-      });
-
-    await wepy.connectSocket({ url: 'wss://wll.tenqent.com:4431' });
-
-    // 初次握手验证
-    await wepy.onSocketOpen(function(res) {
-      console.log('WebSocket连接已打开！');
-      let postMsgData = JSON.stringify(that.message);
-      wepy.sendSocketMessage({
-        data: postMsgData
-      });
-    });
-    await wepy.onSocketMessage(function(res) {
-      console.log('收到服务器内容：' + res.data);
-      let data = JSON.parse(res.data);
-      if (data.type != 'ping') that.msgList.push(data);
-      that.$apply();
-    });
+    async onLoad(opts) {
+      let that = this;
+      // that.message.data.wangge_id = opts.wgbm;
+      // that.message.data.name = opts.name;
+      // that.message.data.wangge_id = '420102001001001';
+      // that.message.data.name = '打';
+    }
   }
-  // async onLoad(opts) {
-  //   let that = this;
 
-  //   // that.message.data.wangge_id = opts.wgbm;
-  //   // that.message.data.name = opts.name;
-  //   // that.message.data.wangge_id = '420102001001001';
-  //   // that.message.data.name = '打';
-  // }
-}
 </script>
 
 <style lang="scss" scoped>
-@import '../../static/base';
+  @import '../../static/base';
 
-#swiper {
-  background: #ffffff;
-}
-#topNav {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  .location {
-    font-size: 16px;
+  #swiper {
+    background: #ffffff;
   }
-  .notice {
-    font-size: 14px;
-    color: darkred;
+
+  #topNav {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    .location {
+      font-size: 16px;
+    }
+    .notice {
+      font-size: 14px;
+      color: darkred;
+    }
+    .iconfont {
+      text-align: center;
+      font-size: 18px;
+      color: #999999;
+    }
   }
-  .iconfont {
+
+  #chatMain {
+    background: rgba(0, 0, 0, 0.05);
+    height: 84vh; // height: 80vh;
+    overflow: scroll;
+  }
+
+  .btn {
+    width: 60rpx;
+    height: 60rpx;
+    font-size: 26rpx;
     text-align: center;
-    font-size: 18px;
+  }
+
+  .tabber-inputs-box {
+    background: #ffffff;
+    position: relative;
+    padding: 0 20rpx;
+  }
+
+  .tabber-inputs-box .iconfont {
+    font-size: 28px;
     color: #999999;
   }
-}
 
-#chatMain {
-  background: rgba(0, 0, 0, 0.05);
-  height: 84vh;
-  // height: 80vh;
-  overflow: scroll;
-}
+  .lv_tabber {
+    z-index: 999;
+    height: 10vh;
+    background: #fff;
+    bottom: 0;
+    width: 750rpx;
+  }
 
-.btn {
-  width: 60rpx;
-  height: 60rpx;
-  font-size: 26rpx;
-  text-align: center;
-}
+  .lv_tabber-inputs {
+    display: -webkit-flex;
+    padding: 20rpx 0 0 0;
+  }
 
-.tabber-inputs-box {
-  background: #ffffff;
-  position: relative;
-  padding: 0 20rpx;
-}
-.tabber-inputs-box .iconfont {
-  font-size: 28px;
-  color: #999999;
-}
+  .lv_textareas {
+    position: relative;
+    top: 0rpx;
+    padding-bottom: 10rpx;
+    margin: 10rpx 0 24rpx 0;
+    margin-left: 10rpx;
+    width: 440rpx;
+  }
 
-.lv_tabber {
-  z-index: 999;
-  height: 10vh;
-  background: #fff;
-  bottom: 0;
-  width: 750rpx;
-}
+  image.wgql_img-mag {
+    margin-left: 0;
+  }
 
-.lv_tabber-inputs {
-  display: -webkit-flex;
-  padding: 20rpx 0 0 0;
-}
+  .lv_tabber-img {
+    height: 60rpx;
+    width: 60rpx;
+    margin: 0 20rpx;
+  }
 
-.lv_textareas {
-  position: relative;
-  top: 0rpx;
-  padding-bottom: 10rpx;
-  margin: 10rpx 0 24rpx 0;
-  margin-left: 10rpx;
-  width: 440rpx;
-}
+  /* 添加界面 */
 
-image.wgql_img-mag {
-  margin-left: 0;
-}
+  .hide {
+    display: none;
+  }
 
-.lv_tabber-img {
-  height: 60rpx;
-  width: 60rpx;
-  margin: 0 20rpx;
-}
+  .show {
+    display: block;
+  }
 
-/* 添加界面 */
+  .wgql-flex-img-mag {
+    margin-top: 40rpx;
+  }
 
-.hide {
-  display: none;
-}
+  .wgql-flex-img {
+    width: 750rpx;
+    display: -webkit-flex;
+    justify-content: center;
+  }
 
-.show {
-  display: block;
-}
+  .wgql-img-box {
+    height: 170rpx;
+    margin: 20rpx 20rpx;
+    text-align: center;
+  }
 
-.wgql-flex-img-mag {
-  margin-top: 40rpx;
-}
+  .wgql-img {
+    width: 100rpx;
+    text-align: center;
+  }
 
-.wgql-flex-img {
-  width: 750rpx;
-  display: -webkit-flex;
-  justify-content: center;
-}
+  .wgql-navigator {
+    width: 126rpx;
+    border-radius: 8rpx;
+  }
 
-.wgql-img-box {
-  height: 170rpx;
-  margin: 20rpx 20rpx;
-  text-align: center;
-}
+  .wgql-img-mag {
+    height: 120rpx;
+    width: 120rpx;
+    border: 2rpx solid #ccc;
+    border-radius: 12rpx;
+    margin-bottom: 10rpx;
+    display: -webkit-flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.wgql-img {
-  width: 100rpx;
-  text-align: center;
-}
+  .wgql-img-mag .iconfont {
+    font-size: 28px;
+    color: #999999;
+  }
 
-.wgql-navigator {
-  width: 126rpx;
-  border-radius: 8rpx;
-}
+  .wgql-image {
+    height: 80rpx;
+    width: 80rpx;
+  }
 
-.wgql-img-mag {
-  height: 120rpx;
-  width: 120rpx;
-  border: 2rpx solid #ccc;
-  border-radius: 12rpx;
-  margin-bottom: 10rpx;
-  display: -webkit-flex;
-  justify-content: center;
-  align-items: center;
-}
-.wgql-img-mag .iconfont {
-  font-size: 28px;
-  color: #999999;
-}
+  .wgql-flex-img-b {
+    padding: 0 20rpx 0 40rpx;
+    display: -webkit-flex;
+  }
 
-.wgql-image {
-  height: 80rpx;
-  width: 80rpx;
-}
+  text {
+    font-size: 26rpx;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.wgql-flex-img-b {
-  padding: 0 20rpx 0 40rpx;
-  display: -webkit-flex;
-}
+  textarea {
+    margin: 0 10px;
+    padding: 0 6px;
+    border-bottom: 2rpx solid #eee;
+  }
 
-text {
-  font-size: 26rpx;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-textarea {
-  margin: 0 10px;
-  padding: 0 6px;
-  border-bottom: 2rpx solid #eee;
-}
 </style>

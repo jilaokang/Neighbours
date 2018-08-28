@@ -1,14 +1,14 @@
 <template>
   <view class="container">
     <view class="row center_middle">
-      <navigator url="/pages/login/admin" hover-class="navigator-hover">
-        <button open-type=getUserInfo   @getUserInfo="getUserInfo">网格员注册</button>
-      </navigator>
+     <view class="nav">
+        <button open-type=getUserInfo   @tap="getUserInfo('access?url=admin')">网格员注册</button>
+      </view>
     </view>
     <view class="row center_middle">
-      <navigator url="/pages/login/people" hover-class="navigator-hover">
-        <button open-type=getUserInfo   @getUserInfo="getUserInfo">居民注册</button>
-      </navigator>
+      <view class="nav">
+        <button open-type=getUserInfo   @tap="getUserInfo('access?url=people')">居民注册</button>
+      </view>
     </view>
   </view>
 </template>
@@ -22,14 +22,10 @@ const resource = new Resource();
 // const auth = new AUTH();
 export default class LoginType extends wepy.page {
   methods = {
-    getUserInfo() {
-      auth.checkLogin();
+    async getUserInfo(url) {
+      await auth.checkLogin(url);
     }
   };
-  onLoad() {
-    console.log(auth.checkLogin());
-    resource.getDistrictList();
-  }
 }
 </script>
 
@@ -38,7 +34,7 @@ export default class LoginType extends wepy.page {
   height: 70vh;
   padding-top: 30vh;
   overflow: hidden;
-  .row navigator {
+  .row .nav {
     margin-bottom: 20px;
     width: 70%;
   }

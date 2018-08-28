@@ -106,10 +106,10 @@ export default class Info extends wepy.page {
           key: 'userinfo'
         })
         .then(res => (USER.id = res.data.id));
-      await wepy.setStorage({
-        key: 'userLogin',
-        data: USER
-      });
+      // await wepy.setStorage({
+      //   key: 'userLogin',
+      //   data: USER
+      // });
 
       await wepy
         .request({
@@ -118,7 +118,7 @@ export default class Info extends wepy.page {
           data: USER
         })
         .then(res => {
-          if (res.data.code === 1) {
+          if (res.data.code) {
             wx.showToast({
               title: '注册成功',
               icon: 'success',
@@ -126,8 +126,7 @@ export default class Info extends wepy.page {
             });
             setTimeout(() => {
               wx.navigateTo({
-                url:
-                  '/pages/chat/index?name=' + that.name + '&wgbm=' + that.wgbm
+                url: '/pages/chat/index?name='
               });
             }, 1000);
           } else {
