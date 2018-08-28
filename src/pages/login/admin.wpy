@@ -60,7 +60,7 @@
         <button class="navigator"  open-type="getPhoneNumber" @getphonenumber="getPhone" type="primary">注册</button>
     </view>  
       <view wx:if="{{loginButton}}" class="model row">
-      <button open-type=getUserInfo   @tap="getUserInfo">点我授权</button
+      <button open-type=getUserInfo   @tap="getUserInfo">点我授权</button>
     </view>
     <footerNav></footerNav>
   </view>
@@ -187,10 +187,13 @@ export default class LoginAdmin extends wepy.page {
       };
       await wepy
         .getStorage({
-          key: 'openid'
+          key: 'userinfo'
         })
-        .then(res => (USER.id = res.data.openid));
-
+        .then(res => (USER.id = res.data.id));
+      await wepy.setStorage({
+        key: 'userLogin',
+        data: USER
+      });
       await wepy
         .request({
           url: 'https://wechat.tenqent.com/api/wxapp/user/wanggeyuan_login',
@@ -206,7 +209,11 @@ export default class LoginAdmin extends wepy.page {
             });
             setTimeout(() => {
               wx.navigateTo({
-                url: '/pages/chat/index'
+                url:
+                  '/pages/chat/index?name=' +
+                  that.user.name +
+                  '&wgbm=' +
+                  that.gridValue.wgbm
               });
             }, 2000);
           } else {
@@ -222,6 +229,9 @@ export default class LoginAdmin extends wepy.page {
           }
         });
       that.$apply();
+    },
+    getUserInfo() {
+      auth.checkLogin();
     }
   };
 

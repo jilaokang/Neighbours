@@ -1,0 +1,13 @@
+<template>
+    <view>
+        dsadsa
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class thingCard extends wepy.component {}
+</script>
+
+<style scoped>
+</style>

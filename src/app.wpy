@@ -15,6 +15,9 @@ export default class extends wepy.app {
 
   config = {
     pages: [
+      // 聊天部分
+      'pages/chat/index',
+      'pages/chat/roominfo/index',
       // 登录页面
       'pages/login/people',
       'pages/login/index',
@@ -23,9 +26,6 @@ export default class extends wepy.app {
       // 反馈页面
       'pages/unmain/log',
       'pages/unmain/fedback',
-      // 聊天部分
-      'pages/chat/index',
-      'pages/chat/roominfo/index',
       // 微心愿
       'pages/wish/index',
       'pages/wish/center/index',

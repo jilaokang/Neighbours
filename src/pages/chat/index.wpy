@@ -13,9 +13,11 @@
       </view>
     </view>
     <scroll-view id="chatMain" scroll-y scroll-top="{{scrollTop}}" style="{{showFooterNav?'height:44vh':''}}">
+
       <repeat wx:for="{{msgList}}" wx:key="index">
-        <myMsg wx:if="{{item.content.uid==openId}}" :value.sync="item.content"></myMsg>
+        <myMsg wx:if="{{item.content.openid==message.data.openid}}" :value.sync="item.content"></myMsg>
         <otherMsg wx:else :value.sync="item.content"></otherMsg>
+        {{item.content.openid}} {{message.data.openid}}
       </repeat>
       <view style="height: 8vh"></view>
     </scroll-view>
@@ -24,14 +26,13 @@
       <view class="tabber-inputs-box lv_border_top">
         <view class="lv_tabber-inputs">
           <view class="iconfont icon-yuyin"></view>
-          <textarea auto-height class="lv_textareas lv_border_bottom" value="{{msgData.data.mine.content}}" @input="getMsg" show-confirm-bar="" maxlength='-1'
+          <textarea auto-height class="lv_textareas lv_border_bottom" value="{{postmssage.data.mine.content}}" @input="getMsg" show-confirm-bar="" maxlength='-1'
           />
         <view class="icon-biaoqing iconfont" style="margin-right:13px"></view>
         <view wx:if="{{!showFooterSendButton}}" @tap="isBack(showFooterNav)"  class="iconfont icon-jia1"></view>
-          <view wx:if="{{showFooterSendButton}}" class="btn-red btn" @tap="postMsg">发送</view>
+          <view  class="btn-red btn" @tap="postMessage">发送</view>
         </view>
       </view>
-
       <view wx:if="{{showFooterNav}}" id="swiper">
         <swiper style="height:40vh;" duration="400" indicator-dots="true" bindchange="swiperTab">
           <swiper-item>
@@ -180,18 +181,21 @@ export default class chat extends wepy.page {
 
     userInfo: {},
     msgList: [],
-    msgData: {
+    postmssage: {
       type: 'chatMessage',
       data: {
-        mine: {
-          id: '',
-          wangge_id: '3108',
-          content: ''
-        },
-        to: {
-          id: '3108',
-          type: 'other'
-        }
+        mine: { content: 'dsadsadsa' },
+        to: { type: 'other', id: '420102001001001' }
+      }
+    },
+    message: {
+      type: 'init',
+      data: {
+        user_id: null,
+        openid: null,
+        wangge_id: null,
+        name: null,
+        headimgurl: null
       }
     }
   };
@@ -201,105 +205,78 @@ export default class chat extends wepy.page {
     isShow: value => (this[value] = true),
     isHidden: value => (this[value] = false),
     getMsg: e => {
-      this.msgData.data.mine.content = e.detail.value;
-      this.showFooterSendButton = e.detail.value ? true : false;
+      console.log(e.detail.value);
+      this.postmssage.data.mine.content = e.detail.value;
+      // this.showFooterSendButton = e.detail.value ? true : false;
       this.$apply();
     },
-    postMsg: () => {
+    async postMessage() {
       let that = this;
-      let postMsgData = JSON.stringify(this.msgData);
-      setTimeout(() => {
-        wepy
-          .sendSocketMessage({
-            data: postMsgData
-          })
-          .then(() => {
-            that.showFooterNav = false;
-            that.showFooterSendButton = false;
-            that.msgData.data.mine.content = '';
-            that.$apply();
-          });
-      }, 50);
+      console.log('ddd');
+      let POSTDATA = JSON.stringify(that.postmssage);
+
+      await wepy.sendSocketMessage({ data: POSTDATA }).then(console.log);
     }
   };
-
-  onShow() {
-    let that = this;
-    wx.login({
-      success: res => {
-        let url = `https://wll.tenqent.com/index.php/Api/GetWechatApi/getSessionKey/code/${
-          res.code
-        }.html`;
-        wx.request({
-          url: url,
-          success: res => {
-            console.log('openid from:' + res.data.openid);
-            console.log(res);
-            that.openId = res.data.openid;
-            that.msgData.data.mine.id = res.data.openid;
-          }
-        });
-      }
-    });
-
-    wx.getUserInfo({
-      success: function(res) {
-        that.userInfo = res.userInfo;
-        console.log(res.userInfo);
-      }
-    });
-  }
-
-  onLoad() {
+  async onShow() {
     let that = this;
 
-    setTimeout(() => {
-      console.log('openid : ' + that.openId);
-
-      var loginData = JSON.stringify({
-        type: 'init',
-        data: {
-          mine: {
-            id: that.openId,
-            wangge_id: '3108',
-            avatar: that.userInfo.avatarUrl,
-            username: that.userInfo.nickName
-          }
-        }
-      });
-
-      console.log(loginData);
-
-      wx.request({
-        url: 'http://qungongbu.tenqent.com/Api/WechatIm/getChatLogwll.html',
-        success: res => {
-          that.msgList = that.msgList.concat(...res.data.data);
-          that.scrollTop = res.data.data.length * 50;
-          this.$apply();
-        }
-      });
-
-      wx.connectSocket({
-        url: 'wss://wll.tenqent.com:4431'
-      });
-
-      wx.onSocketOpen(() => {
-        wx.sendSocketMessage({
-          data: loginData
-        });
-
-        wx.onSocketMessage(res => {
-          let data = JSON.parse(res.data);
-          console.log(data);
-          data.type !== 'ping' ? this.msgList.push(data) : null;
-          this.scrollTop = this.scrollTop + 1000;
-          this.$apply();
+    await wepy
+      .getStorage({
+        key: 'userLogin'
+      })
+      .then(res => {
+        that.message.data.wangge_id = res.data.wgbm;
+        that.message.data.name = res.data.name;
+        that.postmssage.data.to.id = res.data.wgbm;
+      })
+      .catch(res => {
+        console.log(res);
+        wx.navigateTo({
+          url: '/pages/login/index'
         });
       });
 
-      wx.onSocketError(res => console.log(`error${res}`));
-    }, 1000);
+    await wepy
+      .getStorage({
+        key: 'openid'
+      })
+      .then(res => (that.message.data.openid = res.data.openid));
+
+    await wepy
+      .getStorage({
+        key: 'userinfo'
+      })
+      .then(res => {
+        that.message.data.user_id = res.data.id;
+        that.message.data.headimgurl = res.data.avatar;
+      });
+
+    await wepy.connectSocket({ url: 'wss://wll.tenqent.com:4431' });
+
+    // 初次握手验证
+    await wepy.onSocketOpen(function(res) {
+      console.log('WebSocket连接已打开！');
+      let postMsgData = JSON.stringify(that.message);
+      wepy.sendSocketMessage({
+        data: postMsgData
+      });
+    });
+    await wepy.onSocketMessage(function(res) {
+      console.log('收到服务器内容：' + res.data);
+      let data = JSON.parse(res.data);
+      if (data.type != 'ping') that.msgList.push(data);
+      that.$apply();
+    });
   }
+  // async onLoad(opts) {
+  //   let that = this;
+
+  //   // that.message.data.wangge_id = opts.wgbm;
+  //   // that.message.data.name = opts.name;
+  //   // that.message.data.wangge_id = '420102001001001';
+  //   // that.message.data.name = '打';
+  // }
 }
 </script>
 

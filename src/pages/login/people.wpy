@@ -54,7 +54,7 @@
       </repeat>
     </view>
     <view wx:if="{{loginButton}}" class="model row">
-      <button open-type=getUserInfo   @tap="getUserInfo">点我授权</button
+      <button open-type=getUserInfo   @tap="getUserInfo">点我授权</button>
     </view>
     <footerNav bottom="false"></footerNav>
   </view>
@@ -128,7 +128,7 @@ export default class Login extends wepy.page {
       await resource.getGridList(that.communityValue.sqbm).then(res => {
         that.gridList = res.data.data.wangge;
       });
-      await resource.getGridAdminList(420106008006).then(res => {
+      await resource.getGridAdminList(that.communityValue.sqbm).then(res => {
         that.gridAdminList = res.data.data.wanggeyuan;
         that.$apply();
       });

@@ -103,13 +103,17 @@ export default class Info extends wepy.page {
       };
       await wepy
         .getStorage({
-          key: 'openid'
+          key: 'userinfo'
         })
-        .then(res => (USER.id = res.data.openid));
+        .then(res => (USER.id = res.data.id));
+      await wepy.setStorage({
+        key: 'userLogin',
+        data: USER
+      });
 
       await wepy
         .request({
-          url: 'https://wechat.tenqent.com/api/wxapp/user/jumin_login',
+          url: 'https://wechat.tenqent.com/api/wxapp/user/jumin_login?',
           method: 'POST',
           data: USER
         })
@@ -122,9 +126,10 @@ export default class Info extends wepy.page {
             });
             setTimeout(() => {
               wx.navigateTo({
-                url: '/pages/chat/index'
+                url:
+                  '/pages/chat/index?name=' + that.name + '&wgbm=' + that.wgbm
               });
-            }, 2000);
+            }, 1000);
           } else {
             let title;
             for (let key in USER) {
