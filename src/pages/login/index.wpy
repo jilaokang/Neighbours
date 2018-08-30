@@ -15,11 +15,6 @@
 
 <script>
 import wepy from 'wepy';
-import Auth from '../../service/auth';
-import Resource from '../../service/resource';
-const auth = new Auth();
-const resource = new Resource();
-// const auth = new AUTH();
 export default class LoginType extends wepy.page {
   methods = {
     async getUserInfo(url) {

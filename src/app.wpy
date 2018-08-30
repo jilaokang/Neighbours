@@ -5,6 +5,10 @@
 <script>
 import wepy from 'wepy';
 import 'wepy-async-function';
+import AUTH from './service/auth';
+import Resource from './service/resource';
+const resource = new Resource();
+const auth = new AUTH();
 
 export default class extends wepy.app {
   constructor() {

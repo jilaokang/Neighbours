@@ -1,90 +1,93 @@
 <template>
   <view>
     <view class="model row">
-      <button open-type=getUserInfo @tap="getUserInfo" style="{{buffer?'background:#1aad19':'background:#999999'}}">{{buffer?'点击授权':'Loading'}}</button>
+      <button open-type=getUserInfo @tap="getUserInfo" style="{{buffer?'background:#1aad19':'background:#999999'}}">{{buffer?'点击授权':'点击跳转'}}</button>
     </view>
   </view>
 </template>
 
 <script>
-  import wepy from 'wepy'
-  import AUTH from '../../service/auth'
-  const auth = new AUTH();
-  export default class LoginAccess extends wepy.page {
-    data = {
-      buffer: true,
-      url: null
-    }
+import wepy from 'wepy';
+import AUTH from '../../service/auth';
+const auth = new AUTH();
+export default class LoginAccess extends wepy.page {
+  data = {
+    buffer: true,
+    url: null
+  };
 
-    methods = {
-      getUserInfo() {
-        let url = this.url
-        this.buffer = false;
+  methods = {
+    getUserInfo() {
+      let url = this.url;
+      this.buffer = false;
 
-        wepy.login().then((data) => {
-          wepy.getUserInfo().then((res) => {
-            wx.request({
-              url: "https://wechat.tenqent.com/api/wxapp/user/login",
-              data: {
-                code: data.code,
-                encrypted_data: res.encryptedData,
-                iv: res.iv,
-                raw_data: res.rawData,
-                signature: res.signature
-              },
-              method: "POST",
-              success: res => {
-                console.log(res);
-                wepy.request({
-                    url: "https://wechat.tenqent.com/api/wxapp/user/user_check",
-                    method: "POST",
-                    data: {
-                      openid: res.data.data.user.openid
-                    }
-                  })
-                  .then(res => {
-                    if (!res.data.code) {
-                      wx.navigateTo({
-                        url: '/pages/login/' + url
-                      })
-                    } else {
-                      wx.navigateTo({
-                        url: '/pages/chat/index'
-                      })
-                    }
-                  })
-              }
-            })
-          })
-        })
-      }
+      wepy.login().then(data => {
+        wepy.getUserInfo().then(res => {
+          wx.request({
+            url: 'https://wechat.tenqent.com/api/wxapp/user/login',
+            data: {
+              code: data.code,
+              encrypted_data: res.encryptedData,
+              iv: res.iv,
+              raw_data: res.rawData,
+              signature: res.signature
+            },
+            method: 'POST',
+            success: res => {
+              console.log(res);
+              wepy
+                .request({
+                  url: 'https://wechat.tenqent.com/api/wxapp/user/user_check',
+                  method: 'POST',
+                  data: {
+                    openid: res.data.data.user.openid
+                  }
+                })
+                .then(res => {
+                  if (!res.data.code) {
+                    wx.navigateTo({
+                      url: '/pages/login/' + url
+                    });
+                  } else {
+                    wx.navigateTo({
+                      url: '/pages/chat/index'
+                    });
+                  }
+                });
+            }
+          });
+        });
+      });
     }
-    onLoad(opts) {
+  };
+  onLoad(opts) {
+    if (opts.url) {
       this.url = opts.url;
-      wx.onSocketClose(function (res) {
-        console.log('WebSocket 已关闭！')
-      })
+    } else {
+      this.url = opts.scene;
     }
+    wx.onSocketClose(function(res) {
+      console.log('WebSocket 已关闭！');
+    });
   }
-
+}
 </script>
 
 <style lang="scss" scoped>
-  .model {
-    position: absolute;
-    top: 0;
-    padding-top: 20vh;
-    height: 100vh;
-    width: 100vw;
-    background: #ffffff;
-    button {
-      border-radius: 50%;
-      text-align: center;
-      line-height: 100px;
-      background: #1aad19;
-      color: #ffffff;
-      height: 100px;
-    }
+.model {
+  position: absolute;
+  top: 0;
+  padding-top: 20vh;
+  height: 100vh;
+  width: 100vw;
+  background: #ffffff;
+  button {
+    border-radius: 50%;
+    text-align: center;
+    line-height: 100px;
+    background: #1aad19;
+    color: #ffffff;
+    height: 100px;
   }
-
+}
 </style>

@@ -206,7 +206,7 @@ export default class LoginAdmin extends wepy.page {
           console.log(res.data.code);
           if (res.data.code) {
             wx.showToast({
-              title: '注册成功',
+              title: res.data.msg,
               icon: 'success',
               duration: 2000
             });
@@ -217,12 +217,8 @@ export default class LoginAdmin extends wepy.page {
               });
             }, 2000);
           } else {
-            let title;
-            for (let key in USER) {
-              if (USER[key]) title = '您有信息未填写';
-            }
             wx.showToast({
-              title: title,
+              title: res.data.msg,
               icon: 'none',
               duration: 2000
             });

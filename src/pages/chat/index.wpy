@@ -15,9 +15,12 @@
     <scroll-view id="chatMain" scroll-y scroll-top="{{scrollTop}}" style="{{showFooterNav?'height:44vh':''}}">
 
       <repeat wx:for="{{msgList}}" wx:key="index">
-        <myMsg wx:if="{{item.content.openid==message.data.openid}}" :value.sync="item.content"></myMsg>
-        <otherMsg wx:else :value.sync="item.content"></otherMsg>
-        <!-- {{item.content.openid}}{{message.data.openid}} -->
+        <view wx:if="{{item.content.content}}">
+          <!-- {{item.content.content}} -->
+          <myMsg wx:if="{{item.content.openid==message.data.openid}}" :value.sync="item.content"></myMsg>
+          <otherMsg wx:else :value.sync="item.content"></otherMsg>
+          <!-- {{item.content.openid}}{{message.data.openid}} -->
+        </view>
       </repeat>
       <view style="height: 8vh"></view>
     </scroll-view>
@@ -26,8 +29,8 @@
       <view class="tabber-inputs-box lv_border_top">
         <view class="lv_tabber-inputs">
           <view class="iconfont icon-yuyin"></view>
-          <textarea auto-height class="lv_textareas lv_border_bottom" value="{{postmssage.data.mine.content}}" @input="getMsg" show-confirm-bar=""
-            maxlength='-1' />
+          <textarea auto-height class="lv_textareas lv_border_bottom" value="{{postmssage.data.mine.content}}" @input="getMsg"
+            show-confirm-bar="" maxlength='-1' />
           <!-- <view class="icon-biaoqing iconfont" style="margin-right:13px"></view> -->
           <view wx:if="{{!showFooterSendButton}}" style="margin-right:20px" @tap="isBack(showFooterNav)" class="iconfont icon-jia1"></view>
           <view class="btn-red btn" @tap="postMessage">发送</view>
@@ -161,366 +164,415 @@
   </view>
 </template>
 
-
-
 <script>
-  import wepy from 'wepy';
-  import otherMsg from '../../coomponent/otherMsg';
-  import myMsg from '../../coomponent/myMsg';
-  import AUTH from '../../service/auth'
-  const auth = new AUTH()
+import wepy from 'wepy';
+import otherMsg from '../../coomponent/otherMsg';
+import myMsg from '../../coomponent/myMsg';
+import AUTH from '../../service/auth';
+const auth = new AUTH();
 
-  export default class chat extends wepy.page {
-    components = {
-      otherMsg: otherMsg,
-      myMsg: myMsg
-    };
+export default class chat extends wepy.page {
+  components = {
+    otherMsg: otherMsg,
+    myMsg: myMsg
+  };
 
-    data = {
-      DATA: {
-        wgbm: null,
+  data = {
+    DATA: {
+      wgbm: null,
+      openid: null,
+      avatar: null,
+      userid: null,
+      phone: null,
+      name: null,
+      // 管辖区域
+      territory: null
+    },
+    histroyPage: 1,
+    scrollTop: 0,
+    focus: false,
+    openId: '',
+    showFooterNav: false,
+    showFooterSendButton: false,
+
+    userInfo: {},
+    msgList: [{ content: {} }],
+    postmssage: {
+      type: 'chatMessage',
+      data: {
+        mine: {
+          content: ''
+        },
+        to: {
+          type: 'other',
+          id: null
+        }
+      }
+    },
+    message: {
+      type: 'init',
+      data: {
+        user_id: null,
         openid: null,
-        avatar: null,
-        userid: null,
-        phone: null,
+        wangge_id: null,
         name: null,
-        // 管辖区域
-        territory: null
-      },
-      scrollTop: 0,
-      focus: false,
-      openId: '',
-      showFooterNav: false,
-      showFooterSendButton: false,
-
-      userInfo: {},
-      msgList: [],
-      postmssage: {
-        type: 'chatMessage',
-        data: {
-          mine: {
-            content: ''
-          },
-          to: {
-            type: 'other',
-            id: null
-          }
-        }
-      },
-      message: {
-        type: 'init',
-        data: {
-          user_id: null,
-          openid: null,
-          wangge_id: null,
-          name: null,
-          headimgurl: null
-        }
+        headimgurl: null
       }
-    };
-
-    methods = {
-      isBack: value => (this[value] = !this[value]),
-      isShow: value => (this[value] = true),
-      isHidden: value => (this[value] = false),
-      getMsg: e => {
-        console.log(e.detail.value);
-        this.postmssage.data.mine.content = e.detail.value;
-        // this.showFooterSendButton = e.detail.value ? true : false;
-        this.$apply();
-      },
-      async postMessage() {
-        let that = this;
-        console.log('ddd');
-        let POSTDATA = JSON.stringify(that.postmssage);
-        console.log(that.postmssage)
-        await wepy
-          .sendSocketMessage({
-            data: POSTDATA
-          })
-          .then(console.log)
-          .catch(console.log);
-        that.postmssage.data.mine.content = null
-        that.$apply()
-      },
-      init(res) {
-        let that = this
-      }
-    };
-    async onShow() {
+    }
+  };
+  methods = {
+    isBack: value => (this[value] = !this[value]),
+    isShow: value => (this[value] = true),
+    isHidden: value => (this[value] = false),
+    getMsg: e => {
+      console.log(e.detail.value);
+      this.postmssage.data.mine.content = e.detail.value;
+      // this.showFooterSendButton = e.detail.value ? true : false;
+      this.$apply();
+    },
+    getHistroy(value) {
       let that = this;
+      wepy
+        .request({
+          url: 'https://wechat.tenqent.com/api/wxapp/chat_room/getHistoryLog',
+          method: 'POST',
+          data: {
+            openid: that.DATA.openid,
+            wgbm: that.DATA.wgbm,
+            page: that.histroyPage
+          }
+        })
+        .then(res => {
+          // that.msgList.content[0].content = res.data.data[0];
+          // console.log(res);
+        });
+    }
+  };
 
-      await wepy.login().then((data) => {
-          wepy.getUserInfo().then((res) => {
-              wx.request({
-                url: "https://wechat.tenqent.com/api/wxapp/user/login",
-                data: {
-                  code: data.code,
-                  encrypted_data: res.encryptedData,
-                  iv: res.iv,
-                  raw_data: res.rawData,
-                  signature: res.signature
-                },
-                method: "POST",
-                success: res => {
-                  console.log(res)
-                  wepy.request({
-                    url: "https://wechat.tenqent.com/api/wxapp/user/user_check",
-                    method: "POST",
+  postMessage() {
+    let that = this;
+    let POSTDATA = JSON.stringify(that.postmssage);
+    console.log('DSADSA');
+    console.log(POSTDATA);
+    console.log(that.postmssage.data.mine.content);
+    if (that.postmssage.data.mine.content) {
+      wx.sendSocketMessage({
+        data: POSTDATA
+      });
+      // .then(res => {
+      //   console.log('********** ajax ***********');
+      //   console.log(that.postmssage.data.mine.content);
+      //   // that.postmssage.data.mine.content = null;
+      // })
+      // .catch(console.log);
+    }
+    this.postmssage.data.mine.content = '';
+    console.log(that.postmssage.data.mine.content);
+  }
+
+  async onReady() {
+    let that = this;
+    await wepy
+      .login()
+      .then(data => {
+        wepy
+          .getUserInfo()
+          .then(res => {
+            wx.request({
+              url: 'https://wechat.tenqent.com/api/wxapp/user/login',
+              data: {
+                code: data.code,
+                encrypted_data: res.encryptedData,
+                iv: res.iv,
+                raw_data: res.rawData,
+                signature: res.signature
+              },
+              method: 'POST',
+              success: res => {
+                console.log(res);
+                wepy
+                  .request({
+                    url: 'https://wechat.tenqent.com/api/wxapp/user/user_check',
+                    method: 'POST',
                     data: {
                       openid: res.data.data.user.openid
                     }
-                  }).then(data => {
+                  })
+                  .then(data => {
                     if (!res.data.code) {
-                      wx.onSocketClose(function (res) {
-                        console.log('WebSocket 已关闭！')
-                      })
+                      wx.onSocketClose(function(res) {
+                        console.log('WebSocket 已关闭！');
+                      });
                       wx.navigateTo({
                         url: '/pages/login/access?url=people'
                       });
                     }
-                  })
-                  // 数据存储
-                  console.log(that.DATA);
-                  that.DATA.wgbm = res.data.data.user.wgbm;
-                  that.DATA.openid = res.data.data.user.openid;
-                  that.DATA.avatar = res.data.data.user.avatar;
-                  that.DATA.userid = res.data.data.user.id;
-                  that.DATA.phone = res.data.data.user.mobile;
-                  that.DATA.name = res.data.data.user.name;
-                  that.DATA.territory = res.data.data.user.territory;
-                  // 鉴权赋值 
-                  that.message.data.name = that.DATA.name;
-                  that.message.data.wangge_id = that.DATA.wgbm;
-                  console.log(that.DATA.openid);
-                  console.log(that.message.data.openid);
-                  that.message.data.openid = that.DATA.openid;
-                  console.log(that.DATA.openid);
-                  console.log(that.message.data.openid);
-                  // 信息发送 
-                  that.message.data.wangge_id = that.DATA.wgbm;
-                  that.message.data.name = that.DATA.name;
-                  that.postmssage.data.to.id = that.DATA.wgbm;
-                  that.message.data.user_id = that.DATA.userid;
-                  that.message.data.headimgurl = that.DATA.avatar;
-                  // 写入缓存
-                  wx.setStorageSync("token", res.data.data.token);
-                  wx.setStorageSync("userinfo", res.data.data.user);
-                  wx.setStorageSync("openid", res.data.data.response);
-                  console.log(that.DATA);
-                  console.log(that.message);
-                  console.log(that.postmssage);
-                  setTimeout(async () => {
-                    await wepy.connectSocket({
+                  });
+                // 数据存储
+                console.log(that.DATA);
+                that.DATA.wgbm = res.data.data.user.wgbm;
+                that.DATA.openid = res.data.data.user.openid;
+                that.DATA.avatar = res.data.data.user.avatar;
+                that.DATA.userid = res.data.data.user.id;
+                that.DATA.phone = res.data.data.user.mobile;
+                that.DATA.name = res.data.data.user.name;
+                that.DATA.territory = res.data.data.user.territory;
+                // 鉴权赋值
+                that.message.data.name = that.DATA.name;
+                that.message.data.wangge_id = that.DATA.wgbm;
+                console.log(that.DATA.openid);
+                console.log(that.message.data.openid);
+                that.message.data.openid = that.DATA.openid;
+                console.log(that.DATA.openid);
+                console.log(that.message.data.openid);
+                // 信息发送
+                that.message.data.wangge_id = that.DATA.wgbm;
+                that.message.data.name = that.DATA.name;
+                that.postmssage.data.to.id = that.DATA.wgbm;
+                that.message.data.user_id = that.DATA.userid;
+                that.message.data.headimgurl = that.DATA.avatar;
+                // 写入缓存
+                wx.setStorageSync('token', res.data.data.token);
+                wx.setStorageSync('userinfo', res.data.data.user);
+                wx.setStorageSync('openid', res.data.data.response);
+                console.log(that.DATA);
+                console.log(that.message);
+                console.log(that.postmssage);
+                setTimeout(async () => {
+                  await wepy
+                    .connectSocket({
                       url: 'wss://wll.tenqent.com:4431'
-                    }).catch(console.log);
-                    await wepy.onSocketOpen(function (res) {
-                      console.log('WebSocket连接已打开！');
-                      let postMsgData = JSON.stringify(that.message);
-                      console.log(that.message);
-                      wepy.sendSocketMessage({
+                    })
+                    .catch(console.log);
+                  await wepy.onSocketOpen(function(res) {
+                    console.log('WebSocket连接已打开！');
+                    let postMsgData = JSON.stringify(that.message);
+                    console.log(that.message);
+                    wepy
+                      .sendSocketMessage({
                         data: postMsgData
-                      }).catch(console.log);
-                    });
-                    await wepy.onSocketMessage(function (res) {
-                      console.log('收到服务器内容：' + res.data);
-                      let data = JSON.parse(res.data);
-                      if (data.type != 'ping') {
-                        that.msgList.push(data);
-                        that.scrollTop = that.scrollTop + 30;
-                      };
+                      })
+                      .catch(console.log);
+                  });
+                  await wepy.onSocketMessage(function(res) {
+                    console.log('收到服务器内容：' + res.data);
+                    let data = JSON.parse(res.data);
+                    if (data.type != 'ping') {
+                      that.msgList.push(data);
+                      that.scrollTop = that.scrollTop + 30;
+                    }
+                    that.$apply();
+                  });
+                  await wepy
+                    .request({
+                      url:
+                        'https://wechat.tenqent.com/api/wxapp/chat_room/getHistoryLog',
+                      method: 'POST',
+                      data: {
+                        openid: that.DATA.openid,
+                        wgbm: that.DATA.wgbm,
+                        page: that.histroyPage
+                      }
+                    })
+                    .then(res => {
+                      for (let i = 0; i < res.data.data.data.length; i++) {
+                        that.msgList[i] = res.data.data.data[i];
+                        that.scrollTop = that.scrollTop + 200;
+                      }
+
+                      // console.log('**********');
+                      // console.log(res.data.data.data);
                       that.$apply();
                     });
-                  }, 0);
-
-                }
-              })
-            })
-            .catch(() => {
-              wx.onSocketClose(function (res) {
-                console.log('WebSocket 已关闭！')
-              })
-              wx.navigateTo({
-                url: '/pages/login/access?url=people'
-              });
-            })
-        })
-        .catch(() => {
-          wx.onSocketClose(function (res) {
-            console.log('WebSocket 已关闭！')
+                }, 0);
+              }
+            });
           })
-          wx.navigateTo({
-            url: '/pages/login/access?url=people'
+          .catch(() => {
+            wx.onSocketClose(function(res) {
+              console.log('WebSocket 已关闭！');
+            });
+            wx.navigateTo({
+              url: '/pages/login/access?url=people'
+            });
           });
-        })
-    }
-
-    async onLoad(opts) {
-      let that = this;
-      // that.message.data.wangge_id = opts.wgbm;
-      // that.message.data.name = opts.name;
-      // that.message.data.wangge_id = '420102001001001';
-      // that.message.data.name = '打';
-    }
+      })
+      .catch(() => {
+        wx.onSocketClose(function(res) {
+          console.log('WebSocket 已关闭！');
+        });
+        wx.navigateTo({
+          url: '/pages/login/access?url=people'
+        });
+      });
   }
 
+  async onLoad(opts) {
+    let that = this;
+    // that.message.data.wangge_id = opts.wgbm;
+    // that.message.data.name = opts.name;
+    // that.message.data.wangge_id = '420102001001001';
+    // that.message.data.name = '打';
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-  @import '../../static/base';
+@import '../../static/base';
 
-  #swiper {
-    background: #ffffff;
+#swiper {
+  background: #ffffff;
+}
+
+#topNav {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  .location {
+    font-size: 16px;
   }
-
-  #topNav {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    .location {
-      font-size: 16px;
-    }
-    .notice {
-      font-size: 14px;
-      color: darkred;
-    }
-    .iconfont {
-      text-align: center;
-      font-size: 18px;
-      color: #999999;
-    }
+  .notice {
+    font-size: 14px;
+    color: darkred;
   }
-
-  #chatMain {
-    background: rgba(0, 0, 0, 0.05);
-    height: 84vh; // height: 80vh;
-    overflow: scroll;
-  }
-
-  .btn {
-    width: 60rpx;
-    height: 60rpx;
-    font-size: 26rpx;
+  .iconfont {
     text-align: center;
-  }
-
-  .tabber-inputs-box {
-    background: #ffffff;
-    position: relative;
-    padding: 0 20rpx;
-  }
-
-  .tabber-inputs-box .iconfont {
-    font-size: 28px;
+    font-size: 18px;
     color: #999999;
   }
+}
 
-  .lv_tabber {
-    z-index: 999;
-    height: 10vh;
-    background: #fff;
-    bottom: 0;
-    width: 750rpx;
-  }
+#chatMain {
+  background: rgba(0, 0, 0, 0.05);
+  height: 84vh; // height: 80vh;
+  overflow: scroll;
+}
 
-  .lv_tabber-inputs {
-    display: -webkit-flex;
-    padding: 20rpx 0 0 0;
-  }
+.btn {
+  width: 60rpx;
+  height: 60rpx;
+  font-size: 26rpx;
+  text-align: center;
+}
 
-  .lv_textareas {
-    position: relative;
-    top: 0rpx;
-    padding-bottom: 10rpx;
-    margin: 10rpx 0 24rpx 0;
-    margin-left: 10rpx;
-    width: 440rpx;
-  }
+.tabber-inputs-box {
+  background: #ffffff;
+  position: relative;
+  padding: 0 20rpx;
+}
 
-  image.wgql_img-mag {
-    margin-left: 0;
-  }
+.tabber-inputs-box .iconfont {
+  font-size: 28px;
+  color: #999999;
+}
 
-  .lv_tabber-img {
-    height: 60rpx;
-    width: 60rpx;
-    margin: 0 20rpx;
-  }
+.lv_tabber {
+  /* position:absolute; */
+  bottom: 0;
+  z-index: 999;
+  height: 10vh;
+  background: #fff;
+  bottom: 0;
+  width: 750rpx;
+}
 
-  /* 添加界面 */
+.lv_tabber-inputs {
+  display: -webkit-flex;
+  padding: 20rpx 0 0 0;
+}
 
-  .hide {
-    display: none;
-  }
+.lv_textareas {
+  position: relative;
+  top: 0rpx;
+  padding-bottom: 10rpx;
+  margin: 10rpx 0 24rpx 0;
+  margin-left: 10rpx;
+  width: 440rpx;
+}
 
-  .show {
-    display: block;
-  }
+image.wgql_img-mag {
+  margin-left: 0;
+}
 
-  .wgql-flex-img-mag {
-    margin-top: 40rpx;
-  }
+.lv_tabber-img {
+  height: 60rpx;
+  width: 60rpx;
+  margin: 0 20rpx;
+}
 
-  .wgql-flex-img {
-    width: 750rpx;
-    display: -webkit-flex;
-    justify-content: center;
-  }
+/* 添加界面 */
 
-  .wgql-img-box {
-    height: 170rpx;
-    margin: 20rpx 20rpx;
-    text-align: center;
-  }
+.hide {
+  display: none;
+}
 
-  .wgql-img {
-    width: 100rpx;
-    text-align: center;
-  }
+.show {
+  display: block;
+}
 
-  .wgql-navigator {
-    width: 126rpx;
-    border-radius: 8rpx;
-  }
+.wgql-flex-img-mag {
+  margin-top: 40rpx;
+}
 
-  .wgql-img-mag {
-    height: 120rpx;
-    width: 120rpx;
-    border: 2rpx solid #ccc;
-    border-radius: 12rpx;
-    margin-bottom: 10rpx;
-    display: -webkit-flex;
-    justify-content: center;
-    align-items: center;
-  }
+.wgql-flex-img {
+  width: 750rpx;
+  display: -webkit-flex;
+  justify-content: center;
+}
 
-  .wgql-img-mag .iconfont {
-    font-size: 28px;
-    color: #999999;
-  }
+.wgql-img-box {
+  height: 170rpx;
+  margin: 20rpx 20rpx;
+  text-align: center;
+}
 
-  .wgql-image {
-    height: 80rpx;
-    width: 80rpx;
-  }
+.wgql-img {
+  width: 100rpx;
+  text-align: center;
+}
 
-  .wgql-flex-img-b {
-    padding: 0 20rpx 0 40rpx;
-    display: -webkit-flex;
-  }
+.wgql-navigator {
+  width: 126rpx;
+  border-radius: 8rpx;
+}
 
-  text {
-    font-size: 26rpx;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+.wgql-img-mag {
+  height: 120rpx;
+  width: 120rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 12rpx;
+  margin-bottom: 10rpx;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  textarea {
-    margin: 0 10px;
-    padding: 0 6px;
-    border-bottom: 2rpx solid #eee;
-  }
+.wgql-img-mag .iconfont {
+  font-size: 28px;
+  color: #999999;
+}
 
+.wgql-image {
+  height: 80rpx;
+  width: 80rpx;
+}
+
+.wgql-flex-img-b {
+  padding: 0 20rpx 0 40rpx;
+  display: -webkit-flex;
+}
+
+text {
+  font-size: 26rpx;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+textarea {
+  margin: 0 10px;
+  padding: 0 6px;
+  border-bottom: 2rpx solid #eee;
+}
 </style>
